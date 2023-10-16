@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://7cctvtoe7uxf"]
+
+[ext_resource type="Texture2D" uid="uid://bo386rmx0ajc2" path="res://Godot Mini-Projects - Assets/Physics Project/Crate.png" id="1_i87bm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8y63"]
+
+[node name="Crate" type="RigidBody2D"]
+position = Vector2(-143, 0)
+gravity_scale = 0.0
+linear_damp = 3.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_i87bm")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i8y63")

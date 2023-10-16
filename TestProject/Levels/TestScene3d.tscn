@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://itlppxcl65mc"]
+
+[ext_resource type="Material" uid="uid://doe0m2atvwlq8" path="res://Materials/TransparentMaterial.tres" id="1_wa04e"]
+[ext_resource type="Material" uid="uid://5iaehv03ci5i" path="res://Materials/TestMaterial.tres" id="2_vnbrp"]
+[ext_resource type="Material" uid="uid://ci5mchkwtgy7a" path="res://Materials/PictureMaterial.tres" id="3_2i0ep"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kpa3a"]
+material = ExtResource("1_wa04e")
+
+[sub_resource type="BoxMesh" id="BoxMesh_k0v8s"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kn2uu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_arsjc"]
+
+[node name="Root" type="Node3D"]
+
+[node name="Snowman" type="Node3D" parent="."]
+visible = false
+
+[node name="Torso" type="MeshInstance3D" parent="Snowman"]
+transform = Transform3D(1.72719, 0, 0, 0, 1.72719, 0, 0, 0, 1.72719, 0, 0, 0)
+material_override = ExtResource("1_wa04e")
+mesh = SubResource("SphereMesh_kpa3a")
+skeleton = NodePath("../..")
+
+[node name="Left Arm" type="MeshInstance3D" parent="Snowman"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0, 0)
+material_override = ExtResource("2_vnbrp")
+mesh = SubResource("BoxMesh_k0v8s")
+skeleton = NodePath("../..")
+
+[node name="Right Arm" type="MeshInstance3D" parent="Snowman"]
+transform = Transform3D(0.99656, 0, 0, 0, 0.49828, 0, 0, 0, 0.49828, 1, 0, 0)
+material_override = ExtResource("2_vnbrp")
+mesh = SubResource("BoxMesh_k0v8s")
+skeleton = NodePath("../..")
+
+[node name="Bottom" type="MeshInstance3D" parent="Snowman"]
+transform = Transform3D(2.43836, 0, 0, 0, 2.43836, 0, 0, 0, 2.43836, 0, -1.25295, 0)
+material_override = ExtResource("2_vnbrp")
+mesh = SubResource("SphereMesh_kpa3a")
+skeleton = NodePath("../..")
+
+[node name="Head" type="MeshInstance3D" parent="Snowman"]
+transform = Transform3D(-1.0336, 0, 0.279196, 0, 1.07064, 0, -0.279196, 0, -1.0336, 0, 1.11303, 0)
+material_override = ExtResource("3_2i0ep")
+mesh = SubResource("SphereMesh_kpa3a")
+skeleton = NodePath("../..")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602325, 0)
+mesh = SubResource("SphereMesh_kn2uu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.952869, -0.969912)
+visible = false
+light_color = Color(0.968627, 0, 0.0431373, 1)
+light_energy = 2.418
+shadow_enabled = true
+omni_range = 2.93997
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+material_override = ExtResource("2_vnbrp")
+mesh = SubResource("PlaneMesh_arsjc")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.46223, 0)
+light_energy = 5.0
+shadow_enabled = true

@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://h64xahpntkeo"]
+
+[ext_resource type="Script" path="res://Scripts/physics_player.gd" id="1_tyfqr"]
+[ext_resource type="Texture2D" uid="uid://dn7epaw4lq6c5" path="res://Godot Mini-Projects - Assets/Physics Project/PhysicsCharacter.png" id="1_vqlq1"]
+[ext_resource type="PackedScene" uid="uid://7cctvtoe7uxf" path="res://Prefabs/prefab_crate.tscn" id="3_pive6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdfb2"]
+size = Vector2(18, 18)
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" type="RigidBody2D" parent="."]
+mass = 3.0
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("1_tyfqr")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_vqlq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_mdfb2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Crates" type="Node" parent="."]
+
+[node name="Crate" parent="Crates" instance=ExtResource("3_pive6")]
+
+[node name="Crate2" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-188, 69)
+
+[node name="Crate3" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-85, 89)
+
+[node name="Crate4" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(72, 72)
+
+[node name="Crate5" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(127, -6)
+
+[node name="Crate6" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(93, -64)
+
+[node name="Crate7" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-49, -86)
+
+[node name="Crate8" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-148, -75)
+
+[node name="Crate9" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-199, -40)
+
+[node name="Crate10" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(-92, -37)
+
+[node name="Crate11" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(40, -49)
+
+[node name="Crate12" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(73, -8)
+
+[node name="Crate13" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(139, 70)
+
+[node name="Crate14" parent="Crates" instance=ExtResource("3_pive6")]
+position = Vector2(170, -67)

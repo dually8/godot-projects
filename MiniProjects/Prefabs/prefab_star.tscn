@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0503wc5u7fik"]
+
+[ext_resource type="Texture2D" uid="uid://r7vui5gnrxcl" path="res://Godot Mini-Projects - Assets/Loops Project/Star.png" id="1_107yt"]
+
+[node name="Star" type="Sprite2D"]
+texture = ExtResource("1_107yt")

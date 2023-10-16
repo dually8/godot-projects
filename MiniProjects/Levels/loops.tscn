@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://de3nmggl3bl3d"]
+
+[ext_resource type="Script" path="res://Scripts/loops.gd" id="1_2tgnf"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_2tgnf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -294.0
+offset_top = -168.0
+offset_right = 291.0
+offset_bottom = 170.0
+color = Color(0, 0, 0, 1)
