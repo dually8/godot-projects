@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd5a5ebjcso3"]
+
+[ext_resource type="Material" uid="uid://qpg2su3jn2hi" path="res://Materials/mat_tree_trunk.tres" id="1_loi25"]
+[ext_resource type="Material" uid="uid://b1woytx5stb5m" path="res://Materials/mat_tree_leaf.tres" id="2_5xu1k"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lc1vm"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_236vx"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dnjo0"]
+height = 2.45952
+radius = 0.346494
+
+[node name="Tree" type="StaticBody3D" groups=["Tree"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0.285686, 0)
+mesh = SubResource("CylinderMesh_lc1vm")
+surface_material_override/0 = ExtResource("1_loi25")
+
+[node name="Leafs" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 1, 0, 0, 0, 0.75, 0, 1.50082, 0)
+mesh = SubResource("PrismMesh_236vx")
+surface_material_override/0 = ExtResource("2_5xu1k")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.766655, 0)
+shape = SubResource("CylinderShape3D_dnjo0")
