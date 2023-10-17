@@ -1,15 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfqyadthqj15g"]
+[gd_scene load_steps=9 format=3 uid="uid://b8q0fcv8xxyxd"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cucmh62nx0p43" path="res://Materials/mat_physics.tres" id="1_4v8so"]
-[ext_resource type="Texture2D" uid="uid://biwond464pw3f" path="res://Sprites/Tiles/tiles_packed.png" id="1_s5xk4"]
-[ext_resource type="PackedScene" uid="uid://3hvpe5y453bf" path="res://Prefabs/prefab_player.tscn" id="2_xny4j"]
-[ext_resource type="PackedScene" uid="uid://b03u0no1xhhc0" path="res://Prefabs/prefab_enemy.tscn" id="4_2n017"]
-[ext_resource type="PackedScene" uid="uid://2thgs28q0opu" path="res://Prefabs/prefab_spike.tscn" id="5_vrnxl"]
-[ext_resource type="PackedScene" uid="uid://b1pvfiq7i586n" path="res://Prefabs/prefab_coin.tscn" id="6_lsry6"]
-[ext_resource type="PackedScene" uid="uid://r3orlealx8xs" path="res://Prefabs/prefab_end_flag.tscn" id="7_18kdg"]
+[ext_resource type="Texture2D" uid="uid://biwond464pw3f" path="res://Sprites/Tiles/tiles_packed.png" id="1_hyhi2"]
+[ext_resource type="PackedScene" uid="uid://3hvpe5y453bf" path="res://Prefabs/prefab_player.tscn" id="2_7dxt8"]
+[ext_resource type="PackedScene" uid="uid://2thgs28q0opu" path="res://Prefabs/prefab_spike.tscn" id="3_i624q"]
+[ext_resource type="PackedScene" uid="uid://b03u0no1xhhc0" path="res://Prefabs/prefab_enemy.tscn" id="4_eg5xp"]
+[ext_resource type="PackedScene" uid="uid://b1pvfiq7i586n" path="res://Prefabs/prefab_coin.tscn" id="5_yldat"]
+[ext_resource type="PackedScene" uid="uid://r3orlealx8xs" path="res://Prefabs/prefab_end_flag.tscn" id="6_pupfu"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7bctv"]
-texture = ExtResource("1_s5xk4")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2mj5t"]
+texture = ExtResource("1_hyhi2")
 texture_region_size = Vector2i(18, 18)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -709,37 +708,50 @@ texture_region_size = Vector2i(18, 18)
 19:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 19:8/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSet" id="TileSet_1aa5t"]
+[sub_resource type="TileSet" id="TileSet_ko7cg"]
 tile_size = Vector2i(18, 18)
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = ExtResource("1_4v8so")
-sources/0 = SubResource("TileSetAtlasSource_7bctv")
+sources/0 = SubResource("TileSetAtlasSource_2mj5t")
 
 [node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_1aa5t")
+tile_set = SubResource("TileSet_ko7cg")
 format = 2
-layer_0/tile_data = PackedInt32Array(65532, 131072, 1, 65533, 131072, 1, 65534, 131072, 1, 65535, 131072, 1, 0, 131072, 1, 1, 131072, 1, 2, 131072, 1, 3, 131072, 1, 131068, 131072, 6, 131069, 131072, 6, 131070, 131072, 6, 131071, 131072, 6, 65536, 131072, 6, 65537, 131072, 6, 65538, 131072, 6, 65539, 131072, 6, 65531, 65536, 1, 196604, 131072, 7, 196605, 131072, 7, 196606, 131072, 7, 196607, 131072, 7, 131072, 131072, 7, 131073, 131072, 7, 131074, 131072, 7, 131075, 131072, 7, 131067, 65536, 6, 196603, 65536, 7, -131061, 0, 0, -65529, 0, 0, -65527, 0, 0, -196595, 65536, 0, -196594, 131072, 0, -131055, 65536, 0, -131054, 196608, 0, -131052, 65536, 1, -131048, 196608, 1, -131051, 131072, 1, -131050, 131072, 1, -131049, 131072, 1, -65516, 65536, 7, -65515, 131072, 7, -65514, 131072, 7, -65513, 131072, 7, -65512, 196608, 7, -131046, 0, 1, -65510, 0, 6, 26, 0, 6, 65562, 0, 7, -131044, 0, 1, -65508, 0, 6, 28, 0, 7, -131042, 786432, 6, -131041, 851968, 6, -131040, 851968, 6, -131039, 851968, 6, -131038, 917504, 4, -65502, 851968, 5, -65501, 917504, 6, 65572, 524288, 2, 65573, 589824, 2, 65574, 589824, 2, 65575, 589824, 2, 65576, 655360, 2, 39, 524288, 6, 65578, 65536, 0, 65579, 131072, 0, 65580, 131072, 0, 65581, 196608, 0, -65528, 0, 0, -65526, 0, 0, -131060, 0, 0, -131056, 0, 0, -65517, 0, 0, -65511, 0, 0, -65509, 0, 0, -65507, 0, 0, 131113, 0, 0, 131118, 0, 0, 131119, 0, 0, 131120, 0, 0, 131121, 0, 0, 4, 196608, 1, 65540, 196608, 6, 131076, 196608, 7, -196593, 0, 0)
+layer_0/tile_data = PackedInt32Array(65533, 65536, 4, 65534, 131072, 4, 65535, 131072, 4, 0, 131072, 4, 1, 131072, 4, 2, 196608, 4, 5, 0, 4, 65542, 0, 4, 131079, 0, 4, 131082, 65536, 5, 131083, 131072, 5, 131084, 131072, 5, 131085, 196608, 5, 196618, 65536, 7, 196619, 131072, 7, 196620, 131072, 7, 196621, 196608, 7, 65551, 524288, 2, 65552, 589824, 2, 65553, 655360, 2, 131091, 65536, 4, 131092, 131072, 4, 131093, 196608, 4, 65556, 524288, 6, 65560, 65536, 4, 65561, 131072, 4, 65562, 196608, 4, 28, 196608, 4, -65506, 196608, 4, -131041, 196608, 4, -196576, 196608, 4, 131107, 65536, 5, 131108, 131072, 5, 131109, 131072, 5, 131110, 131072, 5, 131111, 131072, 5, 131112, 131072, 5, 131113, 131072, 5, 131114, 131072, 5, 131115, 131072, 5, 131116, 196608, 5, 196643, 65536, 7, 196652, 196608, 7, 196644, 131072, 7, 196645, 131072, 7, 196646, 131072, 7, 196647, 131072, 7, 196648, 131072, 7, 196649, 131072, 7, 196650, 131072, 7, 196651, 131072, 7, 65572, 786432, 3, 36, 786432, 2, -65500, 786432, 1, -131036, 786432, 0, -131037, 917504, 0, -131035, 983040, 0, -2, 327680, 4)
 
-[node name="Player" parent="." instance=ExtResource("2_xny4j")]
+[node name="Player" parent="." instance=ExtResource("2_7dxt8")]
+position = Vector2(0, -12)
 
-[node name="Enemy" parent="." instance=ExtResource("4_2n017")]
+[node name="Spike" parent="." instance=ExtResource("3_i624q")]
+position = Vector2(117, 10)
 
-[node name="Enemy2" parent="." instance=ExtResource("4_2n017")]
-position = Vector2(318, -94)
-move_direction = Vector2(0, 50)
+[node name="Spike2" parent="." instance=ExtResource("3_i624q")]
+position = Vector2(353, 26)
 
-[node name="Spike" parent="." instance=ExtResource("5_vrnxl")]
+[node name="Spike3" parent="." instance=ExtResource("3_i624q")]
+position = Vector2(-43, -10)
 
-[node name="Coin" parent="." instance=ExtResource("6_lsry6")]
-position = Vector2(460, -54)
+[node name="Enemy" parent="." instance=ExtResource("4_eg5xp")]
+position = Vector2(217, 28)
 
-[node name="Coin2" parent="." instance=ExtResource("6_lsry6")]
-position = Vector2(637, -26)
+[node name="Enemy2" parent="." instance=ExtResource("4_eg5xp")]
+position = Vector2(460, 10)
 
-[node name="Coin3" parent="." instance=ExtResource("6_lsry6")]
-position = Vector2(263, -68)
+[node name="Enemy3" parent="." instance=ExtResource("4_eg5xp")]
+position = Vector2(585, -63)
 
-[node name="EndFlag" parent="." instance=ExtResource("7_18kdg")]
-next_scene = "res://Levels/level2.tscn"
+[node name="Coin" parent="." instance=ExtResource("5_yldat")]
+position = Vector2(98, -8)
+
+[node name="Coin2" parent="." instance=ExtResource("5_yldat")]
+position = Vector2(299, 9)
+
+[node name="Coin3" parent="." instance=ExtResource("5_yldat")]
+position = Vector2(369, 15)
+
+[node name="Coin4" parent="." instance=ExtResource("5_yldat")]
+position = Vector2(677, 28)
+
+[node name="EndFlag" parent="." instance=ExtResource("6_pupfu")]
+position = Vector2(799, 26)
