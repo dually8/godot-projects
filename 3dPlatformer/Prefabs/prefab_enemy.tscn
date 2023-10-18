@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://drbvipc26wwwq"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_ojefa"]
+[ext_resource type="ArrayMesh" uid="uid://mvd3ie23bw83" path="res://Models/spikeBlock.obj" id="2_xgaqr"]
+[ext_resource type="Material" uid="uid://csp5u0t0lvcbj" path="res://Materials/mat_spike_spike.tres" id="3_38g21"]
+[ext_resource type="Material" uid="uid://bdoefx3t1p5dy" path="res://Materials/mat_spike_body.tres" id="4_riq88"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_13j8h"]
+size = Vector3(0.594618, 0.61848, 0.611424)
+
+[node name="Enemy" type="Area3D"]
+script = ExtResource("1_ojefa")
+move_dir = Vector3(0, 3, 0)
+
+[node name="Model" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_xgaqr")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_38g21")
+surface_material_override/1 = ExtResource("4_riq88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497316, 0)
+shape = SubResource("BoxShape3D_13j8h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

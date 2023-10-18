@@ -14,3 +14,10 @@ Thanks for stopping by and reading. 😊
 2. Open one of the `project.godot` files via the engine's project manager
 3. Load any one of the scenes in any of the "Levels" directories.
 4. Press F6 to run that scene
+
+## My Certificates
+
+- [Intro to Godot 4](https://academy.zenva.com/certificate/7786109a9c15)
+- [Godot 4 Mini-Projects](https://academy.zenva.com/certificate/3f9fb9dad2a1)
+- [Create a 2D Platformer with Godot 4](https://academy.zenva.com/certificate/a1c3dde47281)
+- [Develop a 3D Platformer with Godot 4](https://academy.zenva.com/certificate/a6bf1e5c1423)

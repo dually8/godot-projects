@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://4gbq5n55h3s8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_idmoa"]
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.705882)
+shadow_offset = Vector2(-1, 1)
+
+[node name="YouDiedScreen" type="Control" groups=["DiedScreen"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.403922, 0.403922, 0.403922, 0.435294)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="YouDiedLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "You died
+OOF"
+label_settings = SubResource("LabelSettings_idmoa")
+horizontal_alignment = 1
+vertical_alignment = 1

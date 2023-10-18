@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://k5qtc4ndwh2c"]
+
+[ext_resource type="Script" path="res://Scripts/PauseMenu.gd" id="1_nt4r7"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nt4r7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.403922, 0.403922, 0.403922, 0.435294)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 8
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Paused"
+
+[node name="ResumeButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ExitButton")
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+text = "Exit"
+
+[connection signal="pressed" from="GridContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="GridContainer/ExitButton" to="." method="_on_exit_button_pressed"]
