@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://63nolselbkr7"]
+
+[ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="1_5yk0r"]
+[ext_resource type="PackedScene" uid="uid://bm4hdke43g5ni" path="res://Prefabs/prefab_character.tscn" id="1_6cajh"]
+[ext_resource type="Texture2D" uid="uid://llbunnq4tjy6" path="res://Sprites/Dragon.png" id="1_t7e5w"]
+[ext_resource type="Resource" uid="uid://brtakrhop3jjh" path="res://Scripts/CombatActions/Slash.tres" id="3_wvkik"]
+[ext_resource type="Resource" uid="uid://4qloxycd7xxa" path="res://Scripts/CombatActions/Stomp.tres" id="4_57efr"]
+[ext_resource type="Texture2D" uid="uid://w8lwegmbjuww" path="res://Sprites/Reptile.png" id="4_q5hyd"]
+[ext_resource type="Resource" uid="uid://dxhmov503tsrc" path="res://Scripts/CombatActions/Heal.tres" id="5_8xpg4"]
+[ext_resource type="Script" path="res://Scripts/CombatActionButton.gd" id="8_0875h"]
+[ext_resource type="Script" path="res://Scripts/PlayerUI.gd" id="8_ss6sy"]
+
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player_character", "enemy_character")]
+script = ExtResource("1_5yk0r")
+player_character = NodePath("Player")
+enemy_character = NodePath("Enemy")
+
+[node name="Player" parent="." node_paths=PackedStringArray("opponent") instance=ExtResource("1_6cajh")]
+position = Vector2(-232, -96)
+is_player = true
+combat_actions = Array[Resource("res://Scripts/CombatAction.gd")]([ExtResource("3_wvkik"), ExtResource("4_57efr"), ExtResource("5_8xpg4")])
+opponent = NodePath("../Enemy")
+visual = ExtResource("1_t7e5w")
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("opponent") instance=ExtResource("1_6cajh")]
+position = Vector2(232, -96)
+combat_actions = Array[Resource("res://Scripts/CombatAction.gd")]([ExtResource("3_wvkik"), ExtResource("5_8xpg4")])
+opponent = NodePath("../Player")
+visual = ExtResource("4_q5hyd")
+flip_visual = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[node name="PlayerCombatActionsUI" type="VBoxContainer" parent="."]
+offset_left = -328.0
+offset_top = 32.0
+offset_right = -136.0
+offset_bottom = 200.0
+script = ExtResource("8_ss6sy")
+buttons = Array[NodePath]([NodePath("CombatAction"), NodePath(""), NodePath(""), NodePath("")])
+
+[node name="CombatAction" type="Button" parent="PlayerCombatActionsUI"]
+visible = false
+layout_mode = 2
+text = "Attack"
+script = ExtResource("8_0875h")
+
+[connection signal="pressed" from="PlayerCombatActionsUI/CombatAction" to="PlayerCombatActionsUI/CombatAction" method="_on_pressed"]
