@@ -19,3 +19,7 @@ bin/
 
 # VSCode
 settings.json
+
+# Other IDEs
+.vs/
+.idea/
