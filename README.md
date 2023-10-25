@@ -22,3 +22,4 @@ Thanks for stopping by and reading. 😊
 - [Create a 2D Platformer with Godot 4](https://academy.zenva.com/certificate/a1c3dde47281)
 - [Develop a 3D Platformer with Godot 4](https://academy.zenva.com/certificate/a6bf1e5c1423)
 - [Build a Micro Turn-Based RPG with Godot 4](https://academy.zenva.com/certificate/d3f50063eca7)
+- [Real-Time Strategy Game with Godot 4](https://academy.zenva.com/certificate/09a0f76dc320)
