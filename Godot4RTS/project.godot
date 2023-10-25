@@ -11,5 +11,14 @@ config_version=5
 [application]
 
 config/name="Godot4RTS"
+run/main_scene="res://Levels/Main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/native_method_override=1
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
