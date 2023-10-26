@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp3nfmoejnmmm"]
+
+[ext_resource type="ArrayMesh" uid="uid://b4lx8m1omexdy" path="res://Models/Enemies/characterZombie.obj" id="1_fa3ei"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_gpvys"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rbtee"]
+radius = 0.243596
+height = 0.798217
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_gpvys")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_fa3ei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.399308, 0)
+shape = SubResource("CapsuleShape3D_rbtee")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
