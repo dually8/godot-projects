@@ -11,6 +11,7 @@ Thanks for stopping by and reading. 😊
 ## Getting Started
 
 1. Download [Godot 4](https://godotengine.org/)
+    - 4.1.1 in particular
 2. Open one of the `project.godot` files via the engine's project manager
 3. Load any one of the scenes in any of the "Levels" directories.
 4. Press F6 to run that scene
@@ -23,3 +24,5 @@ Thanks for stopping by and reading. 😊
 - [Develop a 3D Platformer with Godot 4](https://academy.zenva.com/certificate/a6bf1e5c1423)
 - [Build a Micro Turn-Based RPG with Godot 4](https://academy.zenva.com/certificate/d3f50063eca7)
 - [Real-Time Strategy Game with Godot 4](https://academy.zenva.com/certificate/09a0f76dc320)
+- [Build a First-Person Shooter with Godot 3](https://academy.zenva.com/certificate/e40f26bac302)
+    - I did this with Godot 4.1 instead
