@@ -26,3 +26,5 @@ Thanks for stopping by and reading. 😊
 - [Real-Time Strategy Game with Godot 4](https://academy.zenva.com/certificate/09a0f76dc320)
 - [Build a First-Person Shooter with Godot 3](https://academy.zenva.com/certificate/e40f26bac302)
     - I did this with Godot 4.1 instead
+- [Construct a Strategy Game with Godot 3](https://academy.zenva.com/certificate/282d75d0c46f)
+		- I did this with Godot 4.1 instead. I'm upset that this course was really bad about anti-patterns in programming, so I tried my best to "clean up" as I followed along.

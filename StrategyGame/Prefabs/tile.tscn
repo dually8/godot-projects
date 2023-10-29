@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8c2htl8p0i2m"]
+
+[ext_resource type="Script" path="res://Scripts/tile.gd" id="1_g3ibw"]
+[ext_resource type="Texture2D" uid="uid://c12l0b42jip8s" path="res://Sprites/Ground.png" id="1_nchaa"]
+[ext_resource type="Texture2D" uid="uid://shcwdups8ixm" path="res://Sprites/TileHighlight.png" id="2_iakx3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6gp8"]
+size = Vector2(64, 64)
+
+[node name="Tile" type="Area2D"]
+script = ExtResource("1_g3ibw")
+
+[node name="Ground" type="Sprite2D" parent="."]
+texture = ExtResource("1_nchaa")
+
+[node name="Highlight" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(6.4, 6.4)
+texture = ExtResource("2_iakx3")
+
+[node name="BuildingIcon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d6gp8")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

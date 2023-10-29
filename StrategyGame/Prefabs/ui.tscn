@@ -1,0 +1,185 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccyudv5r1qnn6"]
+
+[ext_resource type="Theme" uid="uid://cn8hwkmwwo7p7" path="res://Theme.tres" id="1_chsir"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="2_2qj4i"]
+[ext_resource type="LabelSettings" uid="uid://cey0ud7f50c5w" path="res://label_turn.tres" id="2_j41dh"]
+[ext_resource type="Texture2D" uid="uid://cmxbnwucqtq2e" path="res://Sprites/Mine.png" id="2_w6yvo"]
+[ext_resource type="Texture2D" uid="uid://bwctrgut0dffl" path="res://Sprites/Greenhouse.png" id="3_gh3au"]
+[ext_resource type="Texture2D" uid="uid://btpjukrpph6if" path="res://Sprites/SolarPanel.png" id="4_87m3i"]
+[ext_resource type="LabelSettings" uid="uid://bcl1texhkl1xn" path="res://label_outline_shadow.tres" id="5_bj12p"]
+[ext_resource type="LabelSettings" uid="uid://bm6l6syci4ry5" path="res://label_highlight.tres" id="6_5auj7"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_chsir")
+script = ExtResource("2_2qj4i")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 144.0
+theme = ExtResource("1_chsir")
+color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[node name="EndTurnButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -32.0
+offset_right = -16.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_chsir")
+theme_override_font_sizes/font_size = 20
+text = "End Turn"
+
+[node name="TurnText" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -16.0
+offset_right = -144.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_chsir")
+text = "Turn 240"
+label_settings = ExtResource("2_j41dh")
+vertical_alignment = 1
+
+[node name="BuildingButtons" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -40.0
+offset_right = 300.0
+offset_bottom = 35.0
+grow_vertical = 2
+theme = ExtResource("1_chsir")
+alignment = 1
+
+[node name="MineButton" type="Button" parent="BuildingButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_chsir")
+icon = ExtResource("2_w6yvo")
+
+[node name="GreenHouseButton" type="Button" parent="BuildingButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_chsir")
+icon = ExtResource("3_gh3au")
+
+[node name="SolarPanelButton" type="Button" parent="BuildingButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_chsir")
+icon = ExtResource("4_87m3i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -72.0
+offset_right = 128.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_chsir")
+alignment = 1
+
+[node name="Food" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HeaderFood" type="Label" parent="VBoxContainer/Food"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Food: "
+label_settings = ExtResource("5_bj12p")
+
+[node name="FoodAmount" type="Label" parent="VBoxContainer/Food"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "25 (+80)"
+label_settings = ExtResource("6_5auj7")
+horizontal_alignment = 2
+
+[node name="Metal" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HeaderMetal" type="Label" parent="VBoxContainer/Metal"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Metal: "
+label_settings = ExtResource("5_bj12p")
+
+[node name="MetalAmount" type="Label" parent="VBoxContainer/Metal"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "25 (+80)"
+label_settings = ExtResource("6_5auj7")
+horizontal_alignment = 2
+
+[node name="Oxygen" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HeaderOxygen" type="Label" parent="VBoxContainer/Oxygen"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Oxygen: "
+label_settings = ExtResource("5_bj12p")
+
+[node name="OxygenAmount" type="Label" parent="VBoxContainer/Oxygen"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "25 (+80)"
+label_settings = ExtResource("6_5auj7")
+horizontal_alignment = 2
+
+[node name="Energy" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HeaderEnergy" type="Label" parent="VBoxContainer/Energy"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Energy:"
+label_settings = ExtResource("5_bj12p")
+
+[node name="EnergyAmount" type="Label" parent="VBoxContainer/Energy"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "25 (+80)"
+label_settings = ExtResource("6_5auj7")
+horizontal_alignment = 2
+
+[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="BuildingButtons/MineButton" to="." method="_on_mine_button_pressed"]
+[connection signal="pressed" from="BuildingButtons/GreenHouseButton" to="." method="_on_green_house_button_pressed"]
+[connection signal="pressed" from="BuildingButtons/SolarPanelButton" to="." method="_on_solar_panel_button_pressed"]

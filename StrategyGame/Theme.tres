@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cn8hwkmwwo7p7"]
+
+[ext_resource type="FontFile" uid="uid://kba52jw7l4ho" path="res://Font/Roboto-Regular.ttf" id="1_1apw6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skemb"]
+bg_color = Color(0.150944, 0.234815, 0.449843, 1)
+border_width_bottom = 4
+border_color = Color(0.150944, 0.234815, 0.449843, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hf2x4"]
+bg_color = Color(0.227451, 0.337255, 0.615686, 1)
+border_width_bottom = 4
+border_color = Color(0.150944, 0.234815, 0.449843, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iiyiu"]
+bg_color = Color(0.0546014, 0.0999559, 0.216697, 1)
+border_width_bottom = 4
+border_color = Color(0.150944, 0.234815, 0.449843, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+default_font = ExtResource("1_1apw6")
+Button/styles/hover = SubResource("StyleBoxFlat_skemb")
+Button/styles/normal = SubResource("StyleBoxFlat_hf2x4")
+Button/styles/pressed = SubResource("StyleBoxFlat_iiyiu")
