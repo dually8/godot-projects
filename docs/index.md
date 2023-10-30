@@ -3,6 +3,7 @@
 I'll try to put together some things I thought would be good to know/come back to in here.
 
 - [Code Order](./code-order.md)
+- [Game Design Notes](./game-design.md)
 
 ## Images
 
