@@ -135,3 +135,6 @@ shape = SubResource("CapsuleShape2D_8qy20")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 target_position = Vector2(0, 64)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true

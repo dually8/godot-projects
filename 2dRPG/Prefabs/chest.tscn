@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://2qc7h3ofl1b2"]
+
+[ext_resource type="PackedScene" uid="uid://bm5r1jcmm4rlq" path="res://Prefabs/interactable.tscn" id="1_1wko6"]
+[ext_resource type="Texture2D" uid="uid://caljlnscuso6f" path="res://Sprites/Tiles/rpgTile163.png" id="1_fxha4"]
+[ext_resource type="Script" path="res://Scripts/chest.gd" id="2_fpnmr"]
+
+[node name="Chest" instance=ExtResource("1_1wko6")]
+script = ExtResource("2_fpnmr")
+gold_to_give = 5
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("1_fxha4")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 8.5)

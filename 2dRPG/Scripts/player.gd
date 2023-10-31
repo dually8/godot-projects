@@ -61,6 +61,10 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	manage_animations()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		_try_interact()
+
 #endregion Built-in Godot Methods
 #region Public Methods
 
@@ -89,7 +93,42 @@ func play_animation(type: AnimationType) -> void:
 	if animation.animation != animation_names[type]:
 		animation.play(animation_names[type])
 
+func take_damage(amount: int) -> void:
+	current_hp -= amount
+	print("Current HP: " + str(current_hp) + " / " + str(max_hp))
+	if current_hp <= 0:
+		die()
+
+func die() -> void:
+	print("You died!")
+	# Restart the game
+	get_tree().reload_current_scene()
+
+func gain_exp(amount: int) -> void:
+	current_exp += amount
+	if current_exp >= exp_to_next_level:
+		_level_up()
+
+func give_gold(amount: int) -> void:
+	gold += amount
+
 #endregion Public Methods
 #region Private Methods
+func _level_up() -> void:
+	var overflow_exp = current_exp - exp_to_next_level
+	exp_to_next_level = int(exp_to_next_level * exp_to_level_rate)
+	current_exp = overflow_exp
+	current_level += 1
+
+func _try_interact() -> void:
+	raycast.target_position = facing_direction * interact_distance
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider is Enemy:
+			var enemy: Enemy = collider
+			enemy.take_damage(damage)
+		elif collider is Interactable:
+			var interactable: Interactable = collider
+			interactable.interact(self)
 
 #endregion Private Methods
