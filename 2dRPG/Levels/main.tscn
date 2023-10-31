@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://biy6m7he5cppc"]
+[gd_scene load_steps=6 format=3 uid="uid://biy6m7he5cppc"]
 
 [ext_resource type="TileSet" uid="uid://cfgxcbn748yv0" path="res://Prefabs/tile_set.tres" id="1_06spq"]
 [ext_resource type="PackedScene" uid="uid://bjhfcp80ic4l3" path="res://Prefabs/player.tscn" id="1_622pw"]
 [ext_resource type="PackedScene" uid="uid://g0lks46dvmek" path="res://Prefabs/enemy.tscn" id="3_l15xk"]
 [ext_resource type="PackedScene" uid="uid://2qc7h3ofl1b2" path="res://Prefabs/chest.tscn" id="4_wlboi"]
+[ext_resource type="PackedScene" uid="uid://dstxqcjjireem" path="res://Prefabs/ui.tscn" id="5_m70jj"]
 
 [node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("5_m70jj")]
 
 [node name="TileMap_Ground" type="TileMap" parent="."]
 tile_set = ExtResource("1_06spq")
@@ -21,8 +26,33 @@ layer_0/tile_data = PackedInt32Array(458754, 3670016, 0, 524299, 3670016, 0, 196
 [node name="Player" parent="." instance=ExtResource("1_622pw")]
 position = Vector2(604, 316)
 
-[node name="Enemy" parent="." instance=ExtResource("3_l15xk")]
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_l15xk")]
 position = Vector2(1000, 544)
 
-[node name="Chest" parent="." instance=ExtResource("4_wlboi")]
+[node name="Enemy2" parent="Enemies" instance=ExtResource("3_l15xk")]
+position = Vector2(1304, 504)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("3_l15xk")]
+position = Vector2(968, 1080)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("3_l15xk")]
+position = Vector2(384, 1384)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("3_l15xk")]
+position = Vector2(1656, 1336)
+
+[node name="Chests" type="Node" parent="."]
+
+[node name="Chest" parent="Chests" instance=ExtResource("4_wlboi")]
 position = Vector2(248, 352)
+
+[node name="Chest2" parent="Chests" instance=ExtResource("4_wlboi")]
+position = Vector2(248, 264)
+
+[node name="Chest3" parent="Chests" instance=ExtResource("4_wlboi")]
+position = Vector2(1120, 728)
+
+[node name="Chest4" parent="Chests" instance=ExtResource("4_wlboi")]
+position = Vector2(288, 1048)

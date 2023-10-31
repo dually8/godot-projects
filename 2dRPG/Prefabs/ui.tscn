@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://dstxqcjjireem"]
+
+[ext_resource type="FontFile" uid="uid://yvx1wrkxlxh0" path="res://Font/Roboto-Regular.ttf" id="1_3y0hx"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="2_4h48r"]
+[ext_resource type="LabelSettings" uid="uid://kcp46n5stmgo" path="res://Prefabs/level_label_settings.tres" id="2_cc3cy"]
+[ext_resource type="FontFile" uid="uid://b0rsujmtwjaiy" path="res://Font/Roboto-Bold.ttf" id="3_oewbq"]
+
+[sub_resource type="Theme" id="Theme_kuh2d"]
+default_font = ExtResource("1_3y0hx")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ratdp"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k57j3"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y0ug"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tngsl"]
+bg_color = Color(0, 0.792157, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7u646"]
+font = ExtResource("3_oewbq")
+font_size = 18
+shadow_color = Color(0.380392, 0.380392, 0.247059, 1)
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kuh2d")
+script = ExtResource("2_4h48r")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -96.0
+offset_right = 112.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[node name="LevelBG" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -33.5
+offset_right = 72.0
+offset_bottom = 33.5
+grow_vertical = 2
+color = Color(1, 1, 1, 0.160784)
+
+[node name="LevelHeader" type="Label" parent="Background/LevelBG"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.5
+offset_right = 33.5
+offset_bottom = 41.0
+grow_horizontal = 2
+text = "LVL"
+label_settings = ExtResource("2_cc3cy")
+horizontal_alignment = 1
+
+[node name="LevelText" type="Label" parent="Background/LevelBG"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -41.0
+offset_right = 33.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "25"
+label_settings = ExtResource("2_cc3cy")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HealthBar" type="ProgressBar" parent="Background"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 88.0
+offset_top = -6.5
+offset_right = 208.0
+offset_bottom = 9.5
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ratdp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_k57j3")
+value = 50.0
+show_percentage = false
+
+[node name="ExpBar" type="ProgressBar" parent="Background"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 88.0
+offset_top = 17.5
+offset_right = 208.0
+offset_bottom = 33.5
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6y0ug")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tngsl")
+value = 50.0
+show_percentage = false
+
+[node name="GoldText" type="Label" parent="Background"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 88.0
+offset_top = -33.5
+offset_right = 208.0
+offset_bottom = -14.5
+grow_vertical = 2
+text = "Gold: 500"
+label_settings = SubResource("LabelSettings_7u646")
+vertical_alignment = 1

@@ -48,8 +48,12 @@ var facing_direction: Vector2 = Vector2(0, 1)
 
 @onready var raycast: RayCast2D = %RayCast2D
 @onready var animation: AnimatedSprite2D = %AnimatedSprite2D
+@onready var ui: UI = get_node("/root/Main/CanvasLayer/UI")
 #endregion OnReady Variables
 #region Built-in Godot Methods
+func _ready() -> void:
+	# Init the UI
+	_update_ui()
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0, 0)
@@ -95,6 +99,7 @@ func play_animation(type: AnimationType) -> void:
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
+	_update_ui()
 	print("Current HP: " + str(current_hp) + " / " + str(max_hp))
 	if current_hp <= 0:
 		die()
@@ -106,11 +111,13 @@ func die() -> void:
 
 func gain_exp(amount: int) -> void:
 	current_exp += amount
+	_update_ui()
 	if current_exp >= exp_to_next_level:
 		_level_up()
 
 func give_gold(amount: int) -> void:
 	gold += amount
+	_update_ui()
 
 #endregion Public Methods
 #region Private Methods
@@ -119,6 +126,7 @@ func _level_up() -> void:
 	exp_to_next_level = int(exp_to_next_level * exp_to_level_rate)
 	current_exp = overflow_exp
 	current_level += 1
+	_update_ui()
 
 func _try_interact() -> void:
 	raycast.target_position = facing_direction * interact_distance
@@ -130,5 +138,11 @@ func _try_interact() -> void:
 		elif collider is Interactable:
 			var interactable: Interactable = collider
 			interactable.interact(self)
+
+func _update_ui() -> void:
+	ui.set_level_text(current_level)
+	ui.set_health_bar(current_hp, max_hp)
+	ui.set_exp_bar(current_exp, exp_to_next_level)
+	ui.set_gold_text(gold)
 
 #endregion Private Methods
