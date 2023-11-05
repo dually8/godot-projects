@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk1nfmspoyp77"]
+
+[ext_resource type="ArrayMesh" uid="uid://t15nmuhci572" path="res://Models/my character.obj" id="1_55sdx"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_lxled"]
+[ext_resource type="Script" path="res://Scripts/CameraOrbit.gd" id="2_tnaq3"]
+[ext_resource type="PackedScene" uid="uid://dae8vrqsj5kon" path="res://Models/Sword.dae" id="2_y3ggb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2b4h6"]
+radius = 0.204235
+height = 0.952434
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_lxled")
+
+[node name="MyCharacter" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_55sdx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478134, 0)
+shape = SubResource("CapsuleShape3D_2b4h6")
+
+[node name="CameraOrbit" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_tnaq3")
+
+[node name="Camera3D" type="Camera3D" parent="CameraOrbit"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.647258, 0.689525, -2.4104)
+
+[node name="WeaponHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.320499, 0.4376, 0.111156)
+
+[node name="Sword" parent="WeaponHolder" instance=ExtResource("2_y3ggb")]
+transform = Transform3D(-6.55671e-09, 3.17637e-23, 0.15, 0.118073, 0.0925142, 5.16111e-09, -0.0925142, 0.118073, -4.04392e-09, -0.646788, 0, 0)
+
+[node name="AttackRaycast" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327582, 0, 0.311912)
+target_position = Vector3(0, 0, 1)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5

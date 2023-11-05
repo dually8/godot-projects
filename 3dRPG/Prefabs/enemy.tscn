@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvhwsyi27sv5i"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_6b4sj"]
+[ext_resource type="ArrayMesh" uid="uid://ifsn2nkrx5dx" path="res://Models/purple enemy.obj" id="1_dwtnf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xorxn"]
+radius = 0.279863
+height = 1.26567
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_6b4sj")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_dwtnf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.645849, 0)
+shape = SubResource("CapsuleShape3D_xorxn")
+
+[node name="AttackRayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 1)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Timer" type="Timer" parent="."]
