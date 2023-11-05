@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc0jwswdm7426"]
+
+[ext_resource type="FontFile" uid="uid://ja2lpbkffvym" path="res://Font/Ubuntu-Regular.ttf" id="1_fjlrk"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_rywt6"]
+
+[sub_resource type="Theme" id="Theme_3mn8f"]
+default_font = ExtResource("1_fjlrk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1oym"]
+bg_color = Color(0.113725, 0.113725, 0.113725, 0.784314)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iidcw"]
+bg_color = Color(0.882353, 0.113725, 0.113725, 0.784314)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3mn8f")
+script = ExtResource("1_rywt6")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -72.0
+offset_right = 192.0
+offset_bottom = -38.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/background = SubResource("StyleBoxFlat_m1oym")
+theme_override_styles/fill = SubResource("StyleBoxFlat_iidcw")
+value = 20.0
+
+[node name="GoldText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -104.0
+offset_right = 192.0
+offset_bottom = -81.0
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 20
+text = "Gold: 100"
+vertical_alignment = 1

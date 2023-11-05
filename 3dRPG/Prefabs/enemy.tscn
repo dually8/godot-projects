@@ -11,11 +11,11 @@ height = 1.26567
 script = ExtResource("1_6b4sj")
 
 [node name="Model" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.00735623, 0)
 mesh = ExtResource("1_dwtnf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.645849, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.637713, 0)
 shape = SubResource("CapsuleShape3D_xorxn")
 
 [node name="AttackRayCast" type="RayCast3D" parent="."]
@@ -24,3 +24,5 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

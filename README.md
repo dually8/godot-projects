@@ -31,3 +31,5 @@ Thanks for stopping by and reading. 😊
 - [Intro to Game Design](https://academy.zenva.com/certificate/805ae195080d)
 - [Create a 2D RPG with Godot 3](https://academy.zenva.com/certificate/3c843afe6e01)
     - I did this with Godot 4.1 instead.
+- [Develop a 3D Action RPG with Godot 3](https://academy.zenva.com/certificate/67ebdeaa4302)
+    - I did this with Godot 4.1 instead.

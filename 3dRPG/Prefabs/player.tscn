@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk1nfmspoyp77"]
+[gd_scene load_steps=9 format=3 uid="uid://dk1nfmspoyp77"]
 
 [ext_resource type="ArrayMesh" uid="uid://t15nmuhci572" path="res://Models/my character.obj" id="1_55sdx"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_lxled"]
@@ -8,6 +8,43 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2b4h6"]
 radius = 0.204235
 height = 0.952434
+
+[sub_resource type="Animation" id="Animation_2kntm"]
+resource_name = "attack"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.349066, 0, 0), Vector3(0.872665, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_etnex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ayp6"]
+_data = {
+"RESET": SubResource("Animation_etnex"),
+"attack": SubResource("Animation_2kntm")
+}
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_lxled")
@@ -34,9 +71,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.320499, 0.4376, 0.111156)
 [node name="Sword" parent="WeaponHolder" instance=ExtResource("2_y3ggb")]
 transform = Transform3D(-6.55671e-09, 3.17637e-23, 0.15, 0.118073, 0.0925142, 5.16111e-09, -0.0925142, 0.118073, -4.04392e-09, -0.646788, 0, 0)
 
+[node name="SwordAnimator" type="AnimationPlayer" parent="WeaponHolder"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_2ayp6")
+}
+
 [node name="AttackRaycast" type="RayCast3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327582, 0, 0.311912)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327582, 0.516043, 0.112145)
 target_position = Vector3(0, 0, 1)
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
