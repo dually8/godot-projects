@@ -33,3 +33,5 @@ Thanks for stopping by and reading. 😊
     - I did this with Godot 4.1 instead.
 - [Develop a 3D Action RPG with Godot 3](https://academy.zenva.com/certificate/67ebdeaa4302)
     - I did this with Godot 4.1 instead.
+- [Intro to 3D Modeling with Blender](https://academy.zenva.com/certificate/25d6619ab324)
+    - I did this with Blender 3.6.5 instead.
