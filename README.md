@@ -35,3 +35,5 @@ Thanks for stopping by and reading. 😊
     - I did this with Godot 4.1 instead.
 - [Intro to 3D Modeling with Blender](https://academy.zenva.com/certificate/25d6619ab324)
     - I did this with Blender 3.6.5 instead.
+- [Intro to Rigging Models in Blender](https://academy.zenva.com/certificate/eaca9ae0deaa)
+    - I did this with Blender 3.6.5 instead.
