@@ -37,3 +37,5 @@ Thanks for stopping by and reading. 😊
     - I did this with Blender 3.6.5 instead.
 - [Intro to Rigging Models in Blender](https://academy.zenva.com/certificate/eaca9ae0deaa)
     - I did this with Blender 3.6.5 instead.
+- [Intro to Pixel Art with Photoshop](https://academy.zenva.com/certificate/898a7757f984)
+    - I went half photoshop and half [aseprite](https://www.aseprite.org/)
