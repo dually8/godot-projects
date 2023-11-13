@@ -39,3 +39,5 @@ Thanks for stopping by and reading. 😊
     - I did this with Blender 3.6.5 instead.
 - [Intro to Pixel Art with Photoshop](https://academy.zenva.com/certificate/898a7757f984)
     - I went half photoshop and half [aseprite](https://www.aseprite.org/)
+- [Level Design for Beginners](https://academy.zenva.com/certificate/6eac5bc28a92)
+    - I need to go back and finish the challenge at some point 😅
