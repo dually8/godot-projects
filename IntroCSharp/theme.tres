@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bq83erunhqqnm"]
+
+[ext_resource type="FontFile" uid="uid://ddp54fmysmcty" path="res://Assets/Font/Ubuntu-Regular.ttf" id="1_sl8vs"]
+
+[resource]
+default_font = ExtResource("1_sl8vs")

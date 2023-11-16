@@ -41,3 +41,7 @@ Thanks for stopping by and reading. 😊
     - I went half photoshop and half [aseprite](https://www.aseprite.org/)
 - [Level Design for Beginners](https://academy.zenva.com/certificate/6eac5bc28a92)
     - I need to go back and finish the challenge at some point 😅
+- [Godot 3 Game Development for Beginners](https://academy.zenva.com/certificate/55d3f23fe2e5)
+    - I used Godot 4.1 and C# for this one.
+- [Humble Godot 2023 Bundle - Tier 3](https://academy.zenva.com/certificate/8be7db8c6c03)
+    - We did it! It's complete!

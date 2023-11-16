@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://c5ig20114y5nd"]
+
+[ext_resource type="PackedScene" uid="uid://c8vgawe3hv78x" path="res://Scenes/Prefabs/hud.tscn" id="1_7k1a6"]
+[ext_resource type="PackedScene" uid="uid://bh5yidc0ljcev" path="res://Scenes/Prefabs/character.tscn" id="1_yn2s6"]
+[ext_resource type="PackedScene" uid="uid://rn5a4f2ffjak" path="res://Scenes/Prefabs/tile.tscn" id="2_vevvu"]
+[ext_resource type="PackedScene" uid="uid://caar51uupsvs1" path="res://Scenes/Prefabs/enemy.tscn" id="3_gy62u"]
+[ext_resource type="Script" path="res://Scripts/CameraController.cs" id="4_v0woo"]
+[ext_resource type="PackedScene" uid="uid://5lfftcfoty87" path="res://Scenes/Prefabs/coin.tscn" id="5_hii2g"]
+[ext_resource type="AudioStream" uid="uid://cc5o5t2thfay4" path="res://Assets/Audio/coin.ogg" id="7_wl3vl"]
+[ext_resource type="Script" path="res://Scripts/AudioPlayer.cs" id="8_bk6pf"]
+[ext_resource type="Script" path="res://Scripts/Boundary.cs" id="9_n2sfq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hturs"]
+size = Vector2(5000, 50)
+
+[node name="Main" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("1_7k1a6")]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("_character")]
+position = Vector2(56, 264)
+position_smoothing_enabled = true
+script = ExtResource("4_v0woo")
+_character = NodePath("../Character")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Camera2D"]
+unique_name_in_owner = true
+script = ExtResource("8_bk6pf")
+_coinSound = ExtResource("7_wl3vl")
+
+[node name="Enemy" parent="." instance=ExtResource("3_gy62u")]
+position = Vector2(480, 200)
+_moveDistance = 320.0
+
+[node name="Character" parent="." instance=ExtResource("1_yn2s6")]
+position = Vector2(56, 392)
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Tile" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(32, 480)
+
+[node name="Tile2" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(96, 480)
+
+[node name="Tile3" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(160, 480)
+
+[node name="Tile4" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(224, 480)
+
+[node name="Tile5" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(288, 480)
+
+[node name="Tile6" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(352, 416)
+
+[node name="Tile7" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(416, 352)
+
+[node name="Tile8" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(480, 288)
+
+[node name="Tile9" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(544, 288)
+
+[node name="Tile10" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(672, 288)
+
+[node name="Tile11" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(736, 288)
+
+[node name="Tile12" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(800, 288)
+
+[node name="Tile13" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(864, 352)
+
+[node name="Tile14" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(992, 480)
+
+[node name="Tile15" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(1056, 480)
+
+[node name="Tile16" parent="Tiles" instance=ExtResource("2_vevvu")]
+position = Vector2(1120, 480)
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("5_hii2g")]
+position = Vector2(288, 416)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("5_hii2g")]
+position = Vector2(480, 232)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("5_hii2g")]
+position = Vector2(800, 232)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("5_hii2g")]
+position = Vector2(1056, 424)
+
+[node name="Boundary" type="Area2D" parent="."]
+position = Vector2(576, 704)
+script = ExtResource("9_n2sfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary"]
+shape = SubResource("RectangleShape2D_hturs")
