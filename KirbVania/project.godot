@@ -23,6 +23,7 @@ aseprite_executable_path="E:/Games/Steam/steamapps/common/Aseprite/Aseprite.exe"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -69,3 +70,6 @@ quit={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.113725, 0.113725, 0.113725, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

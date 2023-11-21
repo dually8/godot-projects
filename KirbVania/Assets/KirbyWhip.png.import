@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvx0b4fyv0wqd"
-path="res://.godot/imported/Kirby.png-f9dc907252a2cc3983b6839c4ec45863.ctex"
+uid="uid://gobvtw1c7p5c"
+path="res://.godot/imported/KirbyWhip.png-ef28a5b2a03dce488b0927e45f8a42a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Kirby.png"
-dest_files=["res://.godot/imported/Kirby.png-f9dc907252a2cc3983b6839c4ec45863.ctex"]
+source_file="res://Assets/KirbyWhip.png"
+dest_files=["res://.godot/imported/KirbyWhip.png-ef28a5b2a03dce488b0927e45f8a42a0.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

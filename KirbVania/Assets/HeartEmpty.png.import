@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvx0b4fyv0wqd"
-path="res://.godot/imported/Kirby.png-f9dc907252a2cc3983b6839c4ec45863.ctex"
+uid="uid://c6r1inhraqvro"
+path="res://.godot/imported/HeartEmpty.png-3250f6a6e97c83d7de7638225d155539.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Kirby.png"
-dest_files=["res://.godot/imported/Kirby.png-f9dc907252a2cc3983b6839c4ec45863.ctex"]
+source_file="res://Assets/HeartEmpty.png"
+dest_files=["res://.godot/imported/HeartEmpty.png-3250f6a6e97c83d7de7638225d155539.ctex"]
 
 [params]
 
