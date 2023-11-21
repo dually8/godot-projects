@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://br7qwturgnoix"]
+
+[ext_resource type="PackedScene" uid="uid://dlxu467jn5rdw" path="res://Assets/Kirby.aseprite" id="1_036py"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_udo6f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wlohx"]
+radius = 7.07107
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite2D")]
+script = ExtResource("1_udo6f")
+_animatedSprite2D = NodePath("Sprite")
+
+[node name="Sprite" parent="." instance=ExtResource("1_036py")]
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wlohx")
