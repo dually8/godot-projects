@@ -31,7 +31,7 @@ project/assembly_name="KirbVania"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -66,6 +66,15 @@ quit={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":4,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Level"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Destructable"
+2d_physics/layer_4="Pickup"
+2d_physics/layer_5="Player"
+2d_physics/layer_6="Weapon"
 
 [rendering]
 

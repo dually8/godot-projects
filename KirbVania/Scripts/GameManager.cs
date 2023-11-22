@@ -13,6 +13,11 @@ public partial class GameManager : Node2D
 		_player.IncreaseScore += OnIncreaseScore;
 	}
 
+	public void UpdateHealth(int amount)
+	{
+		_hud.SetHealth(amount);
+	}
+
 	private void OnIncreaseScore(int amount)
 	{
 		GD.Print("Increase score by " + amount);

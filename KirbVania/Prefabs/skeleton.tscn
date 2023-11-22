@@ -6,12 +6,14 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hjar8"]
 radius = 7.0
 
-[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("_rayCast2D") groups=["Enemy"]]
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
+collision_layer = 2
+collision_mask = 17
 script = ExtResource("1_tsg2k")
-_rayCast2D = NodePath("RayCast2D")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = ExtResource("1_23nwk")
 animation = &"Die"
 autoplay = "Walk"
@@ -20,6 +22,16 @@ autoplay = "Walk"
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_hjar8")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="FloorRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, 16)
 target_position = Vector2(0, 16)
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="AttackRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 8)
+target_position = Vector2(-18, 0)
+collision_mask = 17

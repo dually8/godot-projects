@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://br7qwturgnoix"]
+[gd_scene load_steps=5 format=3 uid="uid://br7qwturgnoix"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_udo6f"]
 [ext_resource type="SpriteFrames" uid="uid://dwyn8fb7ww3t5" path="res://Assets/PlayerSpriteFrames.tres" id="2_7sn7c"]
@@ -6,10 +6,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_wlohx"]
 radius = 8.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite2D", "_rayCast2D") groups=["Player"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o1vi7"]
+radius = 2.0
+height = 20.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite2D") groups=["Player"]]
+collision_layer = 16
+collision_mask = 15
 script = ExtResource("1_udo6f")
 _animatedSprite2D = NodePath("PlayerSprite")
-_rayCast2D = NodePath("RayCast2D")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_7sn7c")
@@ -18,7 +23,20 @@ animation = &"Idle"
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wlohx")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="AttackRayCast" type="RayCast2D" parent="."]
 visible = false
+position = Vector2(8, -1)
+enabled = false
 target_position = Vector2(30, 0)
+collision_mask = 6
 collide_with_areas = true
+
+[node name="WhipHitBox" type="Area2D" parent="."]
+position = Vector2(16, -1)
+collision_layer = 33
+collision_mask = 6
+
+[node name="WhipCollision" type="CollisionShape2D" parent="WhipHitBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_o1vi7")
+debug_color = Color(1, 0, 0.12549, 0.419608)

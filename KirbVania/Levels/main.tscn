@@ -310,6 +310,7 @@ editor_draw_limits = true
 [node name="Player" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("3_hev6s")]
 z_index = 1
 position = Vector2(984, -96)
+collision_mask = 11
 _camera = NodePath("../Camera2D")
 
 [node name="Skeleton" parent="." instance=ExtResource("4_jtghq")]
@@ -325,6 +326,9 @@ position = Vector2(96, -72)
 
 [node name="Light3" parent="Lights" instance=ExtResource("5_fb8rp")]
 position = Vector2(224, -72)
+
+[node name="Light4" parent="Lights" instance=ExtResource("5_fb8rp")]
+position = Vector2(984, -32)
 
 [node name="LeftBoundary" parent="." instance=ExtResource("8_opuld")]
 

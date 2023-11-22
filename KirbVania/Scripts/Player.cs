@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using KirbVania.Scripts;
 
 public partial class Player : CharacterBody2D
 {
@@ -13,7 +14,6 @@ public partial class Player : CharacterBody2D
 	# region Export Vars
 
 	[Export] private AnimatedSprite2D _animatedSprite2D { get; set; }
-	[Export] private RayCast2D _rayCast2D { get; set; }
 	[Export] private Camera2D _camera { get; set; }
 
 	# endregion Export Vars
@@ -23,7 +23,8 @@ public partial class Player : CharacterBody2D
 	public const float Speed = 100.0f;
 	public const float JumpVelocity = -300.0f;
 
-	public float AttackDistance => _animatedSprite2D.FlipH ? -26.0f : 26.0f;
+	// public float AttackDistance => _animatedSprite2D.FlipH ? -26.0f : 26.0f;
+	public float AttackDistance => _animatedSprite2D.FlipH ? -16.0f : 16.0f;
 
 	# endregion Public Vars
 
@@ -31,9 +32,13 @@ public partial class Player : CharacterBody2D
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private RayCast2D _attackRayCast;
+	private GameManager _gameManager;
+	private Area2D _whipHitBox;
 
 	private bool _isAttacking = false;
 	private int _hp = 6;
+	private int _maxHp = 6;
 
 	# endregion Private Vars
 
@@ -46,6 +51,32 @@ public partial class Player : CharacterBody2D
 		_animatedSprite2D.AnimationFinished += OnAnimatedFinished;
 		_camera.Enabled = true;
 		_camera.MakeCurrent();
+		_gameManager = GetNode<GameManager>("/root/Main");
+		_whipHitBox = GetNode<Area2D>("WhipHitBox");
+		_whipHitBox.BodyEntered += OnWhipCollision;
+		_whipHitBox.AreaEntered += OnWhipOverlap;
+		_attackRayCast = GetNode<RayCast2D>("AttackRayCast");
+		DisableWhip();
+	}
+
+	private void OnWhipOverlap(Area2D area)
+	{
+		GD.Print("Whip overlap " + area.Name);
+		if (area.IsInGroup("Destroyable"))
+		{
+			area.QueueFree();
+			EmitSignal(SignalName.IncreaseScore, 100);
+		}
+	}
+
+	private void OnWhipCollision(Node2D body)
+	{
+		GD.Print("Whip hit " + body.Name);
+		if (body is Skeleton skeleton)
+		{
+			skeleton.Die();
+			EmitSignal(SignalName.IncreaseScore, 100);
+		}
 	}
 
 	public override void _Process(double delta)
@@ -60,7 +91,6 @@ public partial class Player : CharacterBody2D
 			GetTree().Quit();
 
 		HandleMovement(delta);
-		// QueueRedraw();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -68,21 +98,35 @@ public partial class Player : CharacterBody2D
 		if (@event.IsActionPressed("attack"))
 		{
 			_isAttacking = true;
-			UseWhipAnimation();
 			TryAttack();
+			UseWhipAnimation();
 		}
 	}
 
-	// public override void _Draw()
-	// {
-	// 	if (_rayCast2D.Enabled)
-	// 	{
-	// 		var rayColor = _rayCast2D.IsColliding() ? Colors.Red : Colors.Green;
-	// 		DrawLine(Vector2.Zero, _rayCast2D.TargetPosition, rayColor, 2.0f);
-	// 	}
-	// }
-
 	# endregion Built In Methods
+
+	#region Public Methods
+
+	public void TakeDamage(int amount)
+	{
+		_hp = Math.Max(_hp - amount, 0); // Don't go below 0.
+		// TODO: Player hurt sound
+		_gameManager.UpdateHealth(_hp);
+		GD.Print("Took " + amount + " damage!");
+		GD.Print("HP is now " + _hp);
+		if (_hp <= 0)
+		{
+			Die();
+		}
+	}
+
+	private void Die()
+	{
+		// TODO: Display game over screen
+		GetTree().ReloadCurrentScene();
+	}
+
+	#endregion
 
 	# region Private Methods
 
@@ -99,6 +143,7 @@ public partial class Player : CharacterBody2D
 			ResetTextureOffset();
 			UseIdleAnimation();
 			HandleAnimations(Velocity);
+			DisableWhip();
 			_isAttacking = false;
 		}
 	}
@@ -132,17 +177,26 @@ public partial class Player : CharacterBody2D
 
 	private void TryAttack()
 	{
-		_rayCast2D.TargetPosition = new Vector2(AttackDistance, 0);
-		_rayCast2D.ForceRaycastUpdate();
-		if (_rayCast2D.IsColliding())
-		{
-			var collider = _rayCast2D.GetCollider();
-			if (collider is Skeleton skeleton)
-			{
-				skeleton.Die();
-				EmitSignal(SignalName.IncreaseScore, 100);
-			}
-		}
+		_whipHitBox.Position = new Vector2(AttackDistance, _whipHitBox.Position.Y);
+		EnableWhip();
+		// _attackRayCast.Position = new Vector2(_animatedSprite2D.FlipH ? -8.0f : 8.0f, _attackRayCast.Position.Y);
+		// _attackRayCast.TargetPosition = new Vector2(AttackDistance, _attackRayCast.Position.Y);
+		// _attackRayCast.ForceRaycastUpdate();
+		// if (_attackRayCast.IsColliding())
+		// {
+		// 	var collider = _attackRayCast.GetCollider() as Node2D;
+		// 	// if (collider is Skeleton skeleton)
+		// 	// {
+		// 	// 	skeleton.Die();
+		// 	// 	EmitSignal(SignalName.IncreaseScore, 100);
+		// 	// }
+		// 	GD.Print("Collided with " + collider.Name);
+		// 	/*else*/ if (collider != null && collider.IsInGroup("Destroyable"))
+		// 	{
+		// 		collider.QueueFree();
+		// 		EmitSignal(SignalName.IncreaseScore, 100);
+		// 	}
+		// }
 	}
 
 	private void HandleAnimations(Vector2 velocity)
@@ -246,6 +300,19 @@ public partial class Player : CharacterBody2D
 		_animatedSprite2D.Offset = new Vector2(0, 0);
 	}
 
+	private void DisableWhip()
+	{
+		GD.Print("Disable whip");
+		_whipHitBox.SetCollisionMaskValue((int)Layers.Destructable, false);
+		_whipHitBox.SetCollisionMaskValue((int)Layers.Enemy, false);
+	}
+	private void EnableWhip()
+	{
+		GD.Print("Enable whip");
+		_whipHitBox.SetCollisionMaskValue((int)Layers.Destructable, true);
+		_whipHitBox.SetCollisionMaskValue((int)Layers.Enemy, true);
+	}
+
 	# endregion Private Methods
 }
 
@@ -257,3 +324,10 @@ public static class PlayerAnimations
 	public static string Walk => "Walk";
 	public static string Whip => "Whip";
 }
+
+// Layer 1 = Level
+// 2 = Enemy
+// 3 = Destructable
+// 4 = Pickup
+// 5 = Player
+// 6 = Weapon
