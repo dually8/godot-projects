@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ewtdtlls7g4l"]
+[gd_scene load_steps=6 format=3 uid="uid://ewtdtlls7g4l"]
 
+[ext_resource type="Script" path="res://Scripts/HUD.cs" id="1_4ygey"]
 [ext_resource type="Texture2D" uid="uid://didxw5eb7xrgt" path="res://Assets/HeartFull.png" id="1_g82mr"]
 [ext_resource type="Theme" uid="uid://c8b7kxuvrducw" path="res://Theme.tres" id="2_2o21e"]
 [ext_resource type="Texture2D" uid="uid://c2rowntphg74o" path="res://Assets/HeartHalf.png" id="2_pxa6n"]
@@ -12,48 +13,49 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4ygey")
 
-[node name="Hearts" type="HBoxContainer" parent="."]
+[node name="Container" type="HBoxContainer" parent="."]
 layout_mode = 2
 offset_left = 16.0
 offset_right = 253.0
 offset_bottom = 49.0
 
-[node name="Heart1" type="TextureRect" parent="Hearts"]
+[node name="Heart1" type="TextureRect" parent="Container"]
 layout_mode = 2
 texture = ExtResource("1_g82mr")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Heart2" type="TextureRect" parent="Hearts"]
+[node name="Heart2" type="TextureRect" parent="Container"]
 layout_mode = 2
 texture = ExtResource("2_pxa6n")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Heart3" type="TextureRect" parent="Hearts"]
+[node name="Heart3" type="TextureRect" parent="Container"]
 layout_mode = 2
 texture = ExtResource("3_s2a7b")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="VSeparator" type="VSeparator" parent="Hearts"]
+[node name="VSeparator" type="VSeparator" parent="Container"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ScoreHeader" type="Label" parent="Hearts"]
+[node name="ScoreHeader" type="Label" parent="Container"]
 layout_mode = 2
 theme = ExtResource("2_2o21e")
 text = "Score"
 uppercase = true
 
-[node name="Dash" type="Label" parent="Hearts"]
+[node name="Dash" type="Label" parent="Container"]
 layout_mode = 2
 theme = ExtResource("2_2o21e")
 text = "-"
 uppercase = true
 
-[node name="ScoreAmount" type="Label" parent="Hearts"]
+[node name="ScoreAmount" type="Label" parent="Container"]
 layout_mode = 2
 theme = ExtResource("2_2o21e")
 text = "0"

@@ -3,22 +3,41 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 100.0f;
-	public const float JumpVelocity = -300.0f;
+	# region Signals
 
-	public float AttackDistance
-	{
-		get { return _animatedSprite2D.FlipH ? -26.0f : 26.0f; }
-	}
+	[Signal]
+	public delegate void IncreaseScoreEventHandler(int amount);
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	# endregion Signals
 
-	private bool _isAttacking = false;
+	# region Export Vars
 
 	[Export] private AnimatedSprite2D _animatedSprite2D { get; set; }
 	[Export] private RayCast2D _rayCast2D { get; set; }
 	[Export] private Camera2D _camera { get; set; }
+
+	# endregion Export Vars
+
+	# region Public Vars
+
+	public const float Speed = 100.0f;
+	public const float JumpVelocity = -300.0f;
+
+	public float AttackDistance => _animatedSprite2D.FlipH ? -26.0f : 26.0f;
+
+	# endregion Public Vars
+
+	# region Private Vars
+
+	// Get the gravity from the project settings to be synced with RigidBody nodes.
+	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+
+	private bool _isAttacking = false;
+	private int _hp = 6;
+
+	# endregion Private Vars
+
+	# region Built In Methods
 
 	public override void _Ready()
 	{
@@ -27,23 +46,6 @@ public partial class Player : CharacterBody2D
 		_animatedSprite2D.AnimationFinished += OnAnimatedFinished;
 		_camera.Enabled = true;
 		_camera.MakeCurrent();
-	}
-
-	private void OnAnimatedFinished()
-	{
-		if (_animatedSprite2D.Animation == PlayerAnimations.Jump && !IsOnFloor())
-		{
-			_animatedSprite2D.Play(PlayerAnimations.Falling);
-			return;
-		}
-
-		if (_animatedSprite2D.Animation == PlayerAnimations.Whip)
-		{
-			ResetTextureOffset();
-			UseIdleAnimation();
-			HandleAnimations(Velocity);
-			_isAttacking = false;
-		}
 	}
 
 	public override void _Process(double delta)
@@ -59,32 +61,6 @@ public partial class Player : CharacterBody2D
 
 		HandleMovement(delta);
 		// QueueRedraw();
-	}
-
-	private void HandleMovement(double delta)
-	{
-		Vector2 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor())
-		{
-			velocity.Y += gravity * (float)delta;
-		}
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
-
-		// Handle horizontal movement
-		var direction = Input.GetAxis("move_left", "move_right");
-		velocity.X = _isAttacking && IsOnFloor() ? 0 : direction * Speed;
-
-		HandleAnimations(velocity);
-
-		Velocity = velocity;
-		MoveAndSlide();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -106,18 +82,66 @@ public partial class Player : CharacterBody2D
 	// 	}
 	// }
 
+	# endregion Built In Methods
+
+	# region Private Methods
+
+	private void OnAnimatedFinished()
+	{
+		if (_animatedSprite2D.Animation == PlayerAnimations.Jump && !IsOnFloor())
+		{
+			_animatedSprite2D.Play(PlayerAnimations.Falling);
+			return;
+		}
+
+		if (_animatedSprite2D.Animation == PlayerAnimations.Whip)
+		{
+			ResetTextureOffset();
+			UseIdleAnimation();
+			HandleAnimations(Velocity);
+			_isAttacking = false;
+		}
+	}
+
+
+	private void HandleMovement(double delta)
+	{
+		Vector2 velocity = Velocity;
+
+		// Add the gravity.
+		if (!IsOnFloor())
+		{
+			velocity.Y += _gravity * (float)delta;
+		}
+
+		// Handle Jump.
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		{
+			velocity.Y = JumpVelocity;
+		}
+
+		// Handle horizontal movement
+		var direction = Input.GetAxis("move_left", "move_right");
+		velocity.X = _isAttacking && IsOnFloor() ? 0 : direction * Speed;
+
+		HandleAnimations(velocity);
+
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+
 	private void TryAttack()
 	{
 		_rayCast2D.TargetPosition = new Vector2(AttackDistance, 0);
 		_rayCast2D.ForceRaycastUpdate();
 		if (_rayCast2D.IsColliding())
 		{
-			// var enemy = _rayCast2D.GetCollider() as Enemy;
-			// if (enemy != null)
-			// {
-			// 	enemy.TakeDamage();
-			// }
-			GD.Print("Hit an enemy! -- ", _rayCast2D.GetCollider().GetClass());
+			var collider = _rayCast2D.GetCollider();
+			if (collider is Skeleton skeleton)
+			{
+				skeleton.Die();
+				EmitSignal(SignalName.IncreaseScore, 100);
+			}
 		}
 	}
 
@@ -127,6 +151,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		HandleFacingDirection(velocity);
 		if (IsOnFloor())
 		{
@@ -170,6 +195,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		_animatedSprite2D.Play(PlayerAnimations.Falling);
 	}
 
@@ -179,6 +205,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		_animatedSprite2D.Play(PlayerAnimations.Idle);
 	}
 
@@ -188,6 +215,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		_animatedSprite2D.Play(PlayerAnimations.Jump);
 	}
 
@@ -197,6 +225,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		_animatedSprite2D.Play(PlayerAnimations.Walk);
 	}
 
@@ -206,6 +235,7 @@ public partial class Player : CharacterBody2D
 		{
 			return;
 		}
+
 		var x = _animatedSprite2D.FlipH ? -8.0f : 8.0f;
 		_animatedSprite2D.Offset = new Vector2(x, 0);
 		_animatedSprite2D.Play(PlayerAnimations.Whip);
@@ -215,9 +245,11 @@ public partial class Player : CharacterBody2D
 	{
 		_animatedSprite2D.Offset = new Vector2(0, 0);
 	}
+
+	# endregion Private Methods
 }
 
-public class PlayerAnimations
+public static class PlayerAnimations
 {
 	public static string Idle => "Idle";
 	public static string Falling => "Falling";
