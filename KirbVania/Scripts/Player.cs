@@ -219,9 +219,9 @@ public partial class Player : CharacterBody2D
 
 public class PlayerAnimations
 {
-	public static string Idle { get; } = "Idle";
-	public static string Falling { get; } = "Falling";
-	public static string Jump { get; } = "Jump";
-	public static string Walk { get; } = "Walk";
-	public static string Whip { get; } = "Whip";
+	public static string Idle => "Idle";
+	public static string Falling => "Falling";
+	public static string Jump => "Jump";
+	public static string Walk => "Walk";
+	public static string Whip => "Whip";
 }

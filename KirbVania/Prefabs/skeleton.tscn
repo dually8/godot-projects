@@ -6,12 +6,13 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hjar8"]
 radius = 7.0
 
-[node name="Skeleton" type="CharacterBody2D"]
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_tsg2k")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_23nwk")
-animation = &"Walk"
+animation = &"Die"
+autoplay = "Walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
