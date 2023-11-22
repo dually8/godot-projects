@@ -305,11 +305,11 @@ editor_draw_limits = true
 
 [node name="Player" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("3_hev6s")]
 z_index = 1
-position = Vector2(56, -32)
+position = Vector2(984, -96)
 _camera = NodePath("../Camera2D")
 
 [node name="Skeleton" parent="." instance=ExtResource("4_jtghq")]
-position = Vector2(325, -40)
+position = Vector2(837, -136)
 
 [node name="Lights" type="Node" parent="."]
 

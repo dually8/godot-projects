@@ -6,8 +6,10 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hjar8"]
 radius = 7.0
 
-[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("_rayCast2D") groups=["Enemy"]]
+z_index = 1
 script = ExtResource("1_tsg2k")
+_rayCast2D = NodePath("RayCast2D")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_23nwk")
@@ -17,3 +19,7 @@ autoplay = "Walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_hjar8")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 16)
+target_position = Vector2(0, 16)
