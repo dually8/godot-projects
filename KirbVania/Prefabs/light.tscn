@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://o55thht06h1l"]
+[gd_scene load_steps=7 format=3 uid="uid://o55thht06h1l"]
 
+[ext_resource type="Script" path="res://Scripts/Destructable.cs" id="1_2c7gk"]
 [ext_resource type="Texture2D" uid="uid://sfrfqge508dg" path="res://Assets/Light.png" id="1_7ydbc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urh2b"]
@@ -27,9 +28,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r77gx"]
 size = Vector2(16, 18)
 
-[node name="Light" type="Area2D" groups=["Destroyable"]]
+[node name="Light" type="Area2D"]
 collision_layer = 4
 collision_mask = 32
+script = ExtResource("1_2c7gk")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8ckfq")

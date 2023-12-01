@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_udo6f"]
 [ext_resource type="SpriteFrames" uid="uid://dwyn8fb7ww3t5" path="res://Assets/PlayerSpriteFrames.tres" id="2_7sn7c"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wlohx"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2fwn"]
+size = Vector2(12, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o1vi7"]
 radius = 2.0
-height = 20.0
+height = 22.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite2D") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite2D")]
 collision_layer = 16
-collision_mask = 15
+collision_mask = 3
 script = ExtResource("1_udo6f")
 _animatedSprite2D = NodePath("PlayerSprite")
 
@@ -21,19 +21,11 @@ sprite_frames = ExtResource("2_7sn7c")
 animation = &"Idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_wlohx")
-
-[node name="AttackRayCast" type="RayCast2D" parent="."]
-visible = false
-position = Vector2(8, -1)
-enabled = false
-target_position = Vector2(30, 0)
-collision_mask = 6
-collide_with_areas = true
+shape = SubResource("RectangleShape2D_m2fwn")
 
 [node name="WhipHitBox" type="Area2D" parent="."]
-position = Vector2(16, -1)
-collision_layer = 33
+position = Vector2(15, -1)
+collision_layer = 32
 collision_mask = 6
 
 [node name="WhipCollision" type="CollisionShape2D" parent="WhipHitBox"]

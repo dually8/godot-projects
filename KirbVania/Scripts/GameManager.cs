@@ -9,20 +9,24 @@ public partial class GameManager : Node2D
 
 	public override void _Ready()
 	{
-		InitializeUI();;
-		_player.IncreaseScore += OnIncreaseScore;
+		InitializeUI();
+	}
+
+	public void OnSkeletonDestroyed()
+	{
+		_score += 100;
+		_hud.SetScore(_score);
+	}
+
+	public void OnLightDestroyed()
+	{
+		_score += 50;
+		_hud.SetScore(_score);
 	}
 
 	public void UpdateHealth(int amount)
 	{
 		_hud.SetHealth(amount);
-	}
-
-	private void OnIncreaseScore(int amount)
-	{
-		GD.Print("Increase score by " + amount);
-		_score += amount;
-		_hud.SetScore(_score);
 	}
 
 	private void InitializeUI()

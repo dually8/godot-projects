@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://djr8j7p2yumgy"]
+
+[ext_resource type="Texture2D" uid="uid://didxw5eb7xrgt" path="res://Assets/HeartFull.png" id="1_d53vv"]
+[ext_resource type="Script" path="res://Scripts/Pickup.cs" id="1_fddkp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3g0r"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wrp5"]
+
+[node name="Pickup" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_fddkp")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_d53vv")
+
+[node name="PhysicsCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o3g0r")
+
+[node name="PickupArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 16
+
+[node name="PickupCollision" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("RectangleShape2D_8wrp5")
+debug_color = Color(0.631373, 0.52549, 0.152941, 0.419608)

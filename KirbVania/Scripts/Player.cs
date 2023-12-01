@@ -32,7 +32,6 @@ public partial class Player : CharacterBody2D
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-	private RayCast2D _attackRayCast;
 	private GameManager _gameManager;
 	private Area2D _whipHitBox;
 
@@ -47,24 +46,26 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		GD.Print("Ready!");
+		AddToGroup(Groups.Player.ToString());
 		UseIdleAnimation();
 		_animatedSprite2D.AnimationFinished += OnAnimatedFinished;
 		_camera.Enabled = true;
 		_camera.MakeCurrent();
 		_gameManager = GetNode<GameManager>("/root/Main");
 		_whipHitBox = GetNode<Area2D>("WhipHitBox");
+		_whipHitBox.AddToGroup(Groups.Weapon.ToString());
 		_whipHitBox.BodyEntered += OnWhipCollision;
 		_whipHitBox.AreaEntered += OnWhipOverlap;
-		_attackRayCast = GetNode<RayCast2D>("AttackRayCast");
 		DisableWhip();
 	}
 
 	private void OnWhipOverlap(Area2D area)
 	{
 		GD.Print("Whip overlap " + area.Name);
-		if (area.IsInGroup("Destroyable"))
+		GD.Print(Layers.Destructable.ToString());
+		if (area is Destructable destructable)
 		{
-			area.QueueFree();
+			destructable.Destroy();
 			EmitSignal(SignalName.IncreaseScore, 100);
 		}
 	}
@@ -74,7 +75,7 @@ public partial class Player : CharacterBody2D
 		GD.Print("Whip hit " + body.Name);
 		if (body is Skeleton skeleton)
 		{
-			skeleton.Die();
+			skeleton.Destroy();
 			EmitSignal(SignalName.IncreaseScore, 100);
 		}
 	}
@@ -118,6 +119,13 @@ public partial class Player : CharacterBody2D
 		{
 			Die();
 		}
+	}
+
+	public void Heal(int amount)
+	{
+		_hp = Math.Min(_hp + amount, _maxHp); // Don't go above max HP.
+		// TODO: Player heal sound
+		_gameManager.UpdateHealth(_hp);
 	}
 
 	private void Die()
@@ -172,6 +180,7 @@ public partial class Player : CharacterBody2D
 		HandleAnimations(velocity);
 
 		Velocity = velocity;
+
 		MoveAndSlide();
 	}
 
@@ -179,24 +188,6 @@ public partial class Player : CharacterBody2D
 	{
 		_whipHitBox.Position = new Vector2(AttackDistance, _whipHitBox.Position.Y);
 		EnableWhip();
-		// _attackRayCast.Position = new Vector2(_animatedSprite2D.FlipH ? -8.0f : 8.0f, _attackRayCast.Position.Y);
-		// _attackRayCast.TargetPosition = new Vector2(AttackDistance, _attackRayCast.Position.Y);
-		// _attackRayCast.ForceRaycastUpdate();
-		// if (_attackRayCast.IsColliding())
-		// {
-		// 	var collider = _attackRayCast.GetCollider() as Node2D;
-		// 	// if (collider is Skeleton skeleton)
-		// 	// {
-		// 	// 	skeleton.Die();
-		// 	// 	EmitSignal(SignalName.IncreaseScore, 100);
-		// 	// }
-		// 	GD.Print("Collided with " + collider.Name);
-		// 	/*else*/ if (collider != null && collider.IsInGroup("Destroyable"))
-		// 	{
-		// 		collider.QueueFree();
-		// 		EmitSignal(SignalName.IncreaseScore, 100);
-		// 	}
-		// }
 	}
 
 	private void HandleAnimations(Vector2 velocity)

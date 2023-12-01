@@ -1,17 +1,23 @@
 using Godot;
 using System;
 using System.Linq;
+using KirbVania.Scripts;
 
 public partial class Skeleton : CharacterBody2D
 {
+	[Signal]
+	public delegate void DestroyedEventHandler();
+
 	/// <summary>
 	/// Number of pixels to raycast down to the floor.
 	/// </summary>
 	[Export] private float _floorRayCastLength = 16.0f;
+
 	/// <summary>
 	/// Negative attacks left. Positive attacks right.
 	/// </summary>
 	[Export] private float _attackDistance = -18.0f;
+
 	/// <summary>
 	/// Attack Rate in seconds.
 	/// </summary>
@@ -31,10 +37,29 @@ public partial class Skeleton : CharacterBody2D
 	public override void _Ready()
 	{
 		GD.Print("Skeleton ready!");
+		AddToGroup(Groups.Enemy.ToString());
 		InitializePlayer();
 		InitializeSprite();
+		SetCollisionShape();
 		InitializeAttackTimer();
 		InitializeRayCasts();
+		ConnectSignals();
+	}
+
+	private void ConnectSignals()
+	{
+		GameManager gm = GetNode<GameManager>("/root/Main");
+		if (gm == null) return;
+		GD.Print("Connect enemy signal to game manager");
+		Destroyed += gm.OnSkeletonDestroyed;
+	}
+
+	private void SetCollisionShape()
+	{
+		var collision = GetNode<CollisionShape2D>("CollisionShape2D");
+		var spriteSize = _sprite.SpriteFrames.GetFrameTexture("Walk", 0).GetSize();
+		collision.Shape = new RectangleShape2D() { Size = spriteSize };
+		FloorSnapLength = spriteSize.Y / 2;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -50,7 +75,7 @@ public partial class Skeleton : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Die()
+	public void Destroy()
 	{
 		// Stop motion
 		Velocity = Vector2.Zero;
@@ -59,6 +84,7 @@ public partial class Skeleton : CharacterBody2D
 		// TODO: Add sound effect here
 		// Side effect is that the skeleton will
 		// be removed from the scene tree
+		EmitSignal(SignalName.Destroyed);
 	}
 
 	private void OnAttackTimerTimeout()
@@ -80,7 +106,9 @@ public partial class Skeleton : CharacterBody2D
 
 	private void InitializePlayer()
 	{
-		_player = GetTree().GetNodesInGroup("Player").FirstOrDefault() as Player;
+		_player = GetTree()
+			.GetNodesInGroup(Groups.Player.ToString())
+			.FirstOrDefault() as Player;
 		if (_player != null)
 		{
 			_walkingDirection = (_player.Position - Position).Normalized();
