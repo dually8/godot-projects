@@ -10,16 +10,30 @@ public partial class Destructable : Area2D
 	/// </summary>
 	private const int ChanceToDrop = 50;
 
+	private AudioStreamPlayer2D _hitAudio;
+	private bool _isDestroyed = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		AddToGroup(Groups.Destructable.ToString());
+		_hitAudio = GetNode<AudioStreamPlayer2D>("HitSFX");
+		_hitAudio.Finished += OnHitAudioFinished;
+	}
+
+	private void OnHitAudioFinished()
+	{
+		QueueFree();
 	}
 
 	public void Destroy()
 	{
+		if (_isDestroyed) return;
+		_isDestroyed = true;
+		Visible = false;
 		SpawnPickup();
-		QueueFree();
+		// Side effect; destroys the node on audio finished
+		_hitAudio.Play();
 	}
 
 	private bool ShouldSpawnPickup()

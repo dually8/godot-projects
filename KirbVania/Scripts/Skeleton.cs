@@ -29,15 +29,18 @@ public partial class Skeleton : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 	private Vector2 _walkingDirection = Vector2.Left;
 	private Player _player;
+	private AudioStreamPlayer2D _hitAudio;
 
 	private bool IsFacingLeft => _sprite.FlipH == false;
 	private float _speed = 50.0f;
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private bool _isKill = false;
 
 	public override void _Ready()
 	{
 		GD.Print("Skeleton ready!");
 		AddToGroup(Groups.Enemy.ToString());
+		_hitAudio = GetNode<AudioStreamPlayer2D>("HitSFX");
 		InitializePlayer();
 		InitializeSprite();
 		SetCollisionShape();
@@ -64,6 +67,12 @@ public partial class Skeleton : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_isKill)
+		{
+			Velocity = Vector2.Zero;
+			MoveAndSlide();
+			return;
+		}
 		// Apply gravity
 		var velocity = Velocity;
 		if (!IsOnFloor())
@@ -77,13 +86,15 @@ public partial class Skeleton : CharacterBody2D
 
 	public void Destroy()
 	{
-		// Stop motion
-		Velocity = Vector2.Zero;
+		if (_isKill) return;
+		// Side effect; stop moving (see PhysicsProcess)
+		_isKill = true;
+		// Play hit sound
+		_hitAudio.Play();
 		// Play death animation
-		_sprite.Play(SkeletonAnimations.Die);
-		// TODO: Add sound effect here
 		// Side effect is that the skeleton will
 		// be removed from the scene tree
+		_sprite.Play(SkeletonAnimations.Die);
 		EmitSignal(SignalName.Destroyed);
 	}
 

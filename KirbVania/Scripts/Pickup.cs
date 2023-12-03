@@ -17,12 +17,21 @@ public partial class Pickup : CharacterBody2D
 	[Export] private float _swaySpeed = 200.0f;
 
 	private Area2D _pickupArea;
+	private AudioStreamPlayer2D _pickupAudio;
+	private bool _isPickedUp = false;
 
 
 	public override void _Ready()
 	{
 		_pickupArea = GetNode<Area2D>("%PickupArea");
+		_pickupAudio = GetNode<AudioStreamPlayer2D>("PickupSFX");
+		_pickupAudio.Finished += OnPickupAudioFinished;
 		ConnectPickupAreaSignals();
+	}
+
+	private void OnPickupAudioFinished()
+	{
+		QueueFree();
 	}
 
 	private void ConnectPickupAreaSignals()
@@ -33,12 +42,15 @@ public partial class Pickup : CharacterBody2D
 
 	private void OnPickupAreaBodyEntered(Node2D body)
 	{
-		if (body is Player player)
+		if (body is Player player && !_isPickedUp)
 		{
 			// Increase health
 			player.Heal(1);
-			// Destroy pickup
-			QueueFree();
+			// Disable picking up twice
+			_isPickedUp = true;
+			Visible = false;
+			// Play pickup sound; side effect - destroy node when finished
+			_pickupAudio.Play();
 		}
 	}
 

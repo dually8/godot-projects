@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2oylbmpfb5eb"]
+[gd_scene load_steps=4 format=3 uid="uid://2oylbmpfb5eb"]
 
 [ext_resource type="SpriteFrames" uid="uid://ddc6idct40c7d" path="res://Assets/SkeletonSpriteFrames.tres" id="1_23nwk"]
 [ext_resource type="Script" path="res://Scripts/Skeleton.cs" id="1_tsg2k"]
+[ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="3_axfa5"]
 
 [node name="Skeleton" type="CharacterBody2D"]
 z_index = 1
@@ -30,3 +31,7 @@ unique_name_in_owner = true
 position = Vector2(0, 8)
 target_position = Vector2(-18, 0)
 collision_mask = 17
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_axfa5")
+volume_db = 1.0

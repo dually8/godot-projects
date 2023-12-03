@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://br7qwturgnoix"]
+[gd_scene load_steps=9 format=3 uid="uid://br7qwturgnoix"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_udo6f"]
 [ext_resource type="SpriteFrames" uid="uid://dwyn8fb7ww3t5" path="res://Assets/PlayerSpriteFrames.tres" id="2_7sn7c"]
+[ext_resource type="AudioStream" uid="uid://cps1vy8vx3uyl" path="res://Assets/KirbyJumpSFX.ogg" id="3_8jo3b"]
+[ext_resource type="AudioStream" uid="uid://dlk7id3pefylp" path="res://Assets/KirbyLandSFX.ogg" id="4_b7vp3"]
+[ext_resource type="AudioStream" uid="uid://1aks7cceaxs5" path="res://Assets/WhipSFX.ogg" id="5_8r3jk"]
+[ext_resource type="AudioStream" uid="uid://c617suav6lhg5" path="res://Assets/KirbyHurtSFX.ogg" id="6_jlp3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2fwn"]
+custom_solver_bias = 0.01
 size = Vector2(12, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o1vi7"]
@@ -32,3 +37,15 @@ collision_mask = 6
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_o1vi7")
 debug_color = Color(1, 0, 0.12549, 0.419608)
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8jo3b")
+
+[node name="LandAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_b7vp3")
+
+[node name="WhipAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8r3jk")
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_jlp3j")

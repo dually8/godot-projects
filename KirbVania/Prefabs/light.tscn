@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://o55thht06h1l"]
+[gd_scene load_steps=8 format=3 uid="uid://o55thht06h1l"]
 
 [ext_resource type="Script" path="res://Scripts/Destructable.cs" id="1_2c7gk"]
 [ext_resource type="Texture2D" uid="uid://sfrfqge508dg" path="res://Assets/Light.png" id="1_7ydbc"]
+[ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="3_8dntx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urh2b"]
 atlas = ExtResource("1_7ydbc")
@@ -41,3 +42,6 @@ autoplay = "Flicker"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_r77gx")
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8dntx")

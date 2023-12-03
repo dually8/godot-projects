@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://djr8j7p2yumgy"]
+[gd_scene load_steps=6 format=3 uid="uid://djr8j7p2yumgy"]
 
 [ext_resource type="Texture2D" uid="uid://didxw5eb7xrgt" path="res://Assets/HeartFull.png" id="1_d53vv"]
 [ext_resource type="Script" path="res://Scripts/Pickup.cs" id="1_fddkp"]
+[ext_resource type="AudioStream" uid="uid://t44c0v3symfq" path="res://Assets/HeartPickup.ogg" id="3_00spn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3g0r"]
 size = Vector2(16, 16)
@@ -26,3 +27,6 @@ collision_mask = 16
 [node name="PickupCollision" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource("RectangleShape2D_8wrp5")
 debug_color = Color(0.631373, 0.52549, 0.152941, 0.419608)
+
+[node name="PickupSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_00spn")

@@ -34,10 +34,15 @@ public partial class Player : CharacterBody2D
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	private GameManager _gameManager;
 	private Area2D _whipHitBox;
+	private AudioStreamPlayer2D _jumpAudio;
+	private AudioStreamPlayer2D _landAudio;
+	private AudioStreamPlayer2D _whipAudio;
+	private AudioStreamPlayer2D _hurtAudio;
 
 	private bool _isAttacking = false;
 	private int _hp = 6;
 	private int _maxHp = 6;
+	private bool _wasOnFloor = true;
 
 	# endregion Private Vars
 
@@ -48,6 +53,10 @@ public partial class Player : CharacterBody2D
 		GD.Print("Ready!");
 		AddToGroup(Groups.Player.ToString());
 		UseIdleAnimation();
+		_jumpAudio = GetNode<AudioStreamPlayer2D>("JumpAudio");
+		_landAudio = GetNode<AudioStreamPlayer2D>("LandAudio");
+		_whipAudio = GetNode<AudioStreamPlayer2D>("WhipAudio");
+		_hurtAudio = GetNode<AudioStreamPlayer2D>("HurtAudio");
 		_animatedSprite2D.AnimationFinished += OnAnimatedFinished;
 		_camera.Enabled = true;
 		_camera.MakeCurrent();
@@ -111,7 +120,7 @@ public partial class Player : CharacterBody2D
 	public void TakeDamage(int amount)
 	{
 		_hp = Math.Max(_hp - amount, 0); // Don't go below 0.
-		// TODO: Player hurt sound
+		_hurtAudio.Play();
 		_gameManager.UpdateHealth(_hp);
 		GD.Print("Took " + amount + " damage!");
 		GD.Print("HP is now " + _hp);
@@ -124,7 +133,6 @@ public partial class Player : CharacterBody2D
 	public void Heal(int amount)
 	{
 		_hp = Math.Min(_hp + amount, _maxHp); // Don't go above max HP.
-		// TODO: Player heal sound
 		_gameManager.UpdateHealth(_hp);
 	}
 
@@ -171,6 +179,8 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
+			// Play jump sound
+			_jumpAudio.Play();
 		}
 
 		// Handle horizontal movement
@@ -180,6 +190,14 @@ public partial class Player : CharacterBody2D
 		HandleAnimations(velocity);
 
 		Velocity = velocity;
+
+		if (IsOnFloor() && !_wasOnFloor)
+		{
+			// Play land sound
+			_landAudio.Play();
+		}
+
+		_wasOnFloor = IsOnFloor();
 
 		MoveAndSlide();
 	}
@@ -284,6 +302,7 @@ public partial class Player : CharacterBody2D
 		var x = _animatedSprite2D.FlipH ? -8.0f : 8.0f;
 		_animatedSprite2D.Offset = new Vector2(x, 0);
 		_animatedSprite2D.Play(PlayerAnimations.Whip);
+		_whipAudio.Play();
 	}
 
 	private void ResetTextureOffset()
@@ -297,6 +316,7 @@ public partial class Player : CharacterBody2D
 		_whipHitBox.SetCollisionMaskValue((int)Layers.Destructable, false);
 		_whipHitBox.SetCollisionMaskValue((int)Layers.Enemy, false);
 	}
+
 	private void EnableWhip()
 	{
 		GD.Print("Enable whip");

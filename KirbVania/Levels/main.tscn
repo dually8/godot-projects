@@ -315,7 +315,13 @@ position = Vector2(64, -32)
 _camera = NodePath("../Camera2D")
 
 [node name="Skeleton" parent="." instance=ExtResource("4_jtghq")]
-position = Vector2(528, -40)
+position = Vector2(408, -40)
+
+[node name="Skeleton2" parent="." instance=ExtResource("4_jtghq")]
+position = Vector2(456, -39)
+
+[node name="Skeleton3" parent="." instance=ExtResource("4_jtghq")]
+position = Vector2(504, -39)
 
 [node name="Lights" type="Node" parent="."]
 
