@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxpyucm48u158"]
+[gd_scene load_steps=12 format=3 uid="uid://bxpyucm48u158"]
 
 [ext_resource type="PackedScene" uid="uid://ewtdtlls7g4l" path="res://Prefabs/hud.tscn" id="1_45dd7"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_mavl2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://2oylbmpfb5eb" path="res://Prefabs/skeleton.tscn" id="4_jtghq"]
 [ext_resource type="PackedScene" uid="uid://o55thht06h1l" path="res://Prefabs/light.tscn" id="5_fb8rp"]
 [ext_resource type="PackedScene" uid="uid://csav025q8eiw1" path="res://Prefabs/boundary.tscn" id="8_opuld"]
+[ext_resource type="AudioStream" uid="uid://bly2flx2hsb4m" path="res://Assets/BadVampireKiller.ogg" id="9_qwljn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0vr1"]
 resource_name = "Level1"
@@ -314,15 +315,6 @@ z_index = 1
 position = Vector2(64, -32)
 _camera = NodePath("../Camera2D")
 
-[node name="Skeleton" parent="." instance=ExtResource("4_jtghq")]
-position = Vector2(408, -40)
-
-[node name="Skeleton2" parent="." instance=ExtResource("4_jtghq")]
-position = Vector2(456, -39)
-
-[node name="Skeleton3" parent="." instance=ExtResource("4_jtghq")]
-position = Vector2(504, -39)
-
 [node name="Lights" type="Node" parent="."]
 
 [node name="Light" parent="Lights" instance=ExtResource("5_fb8rp")]
@@ -337,10 +329,32 @@ position = Vector2(224, -72)
 [node name="Light5" parent="Lights" instance=ExtResource("5_fb8rp")]
 position = Vector2(288, -72)
 
+[node name="Light6" parent="Lights" instance=ExtResource("5_fb8rp")]
+position = Vector2(408, -72)
+
+[node name="Light7" parent="Lights" instance=ExtResource("5_fb8rp")]
+position = Vector2(544, -72)
+
+[node name="Light8" parent="Lights" instance=ExtResource("5_fb8rp")]
+position = Vector2(608, -71)
+
+[node name="Light9" parent="Lights" instance=ExtResource("5_fb8rp")]
+position = Vector2(712, -112)
+
 [node name="Light4" parent="Lights" instance=ExtResource("5_fb8rp")]
 position = Vector2(984, -32)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Skeleton" parent="Enemies" instance=ExtResource("4_jtghq")]
+position = Vector2(408, -40)
 
 [node name="LeftBoundary" parent="." instance=ExtResource("8_opuld")]
 
 [node name="RightBoundary" parent="." instance=ExtResource("8_opuld")]
 position = Vector2(1560, -104)
+
+[node name="LevelMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_qwljn")
+volume_db = -1.0
+autoplay = true

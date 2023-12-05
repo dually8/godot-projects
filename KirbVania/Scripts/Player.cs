@@ -23,7 +23,6 @@ public partial class Player : CharacterBody2D
 	public const float Speed = 100.0f;
 	public const float JumpVelocity = -300.0f;
 
-	// public float AttackDistance => _animatedSprite2D.FlipH ? -26.0f : 26.0f;
 	public float AttackDistance => _animatedSprite2D.FlipH ? -16.0f : 16.0f;
 
 	# endregion Public Vars
@@ -32,17 +31,21 @@ public partial class Player : CharacterBody2D
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+
 	private GameManager _gameManager;
 	private Area2D _whipHitBox;
+	private CollisionShape2D _whipCollision;
 	private AudioStreamPlayer2D _jumpAudio;
 	private AudioStreamPlayer2D _landAudio;
 	private AudioStreamPlayer2D _whipAudio;
 	private AudioStreamPlayer2D _hurtAudio;
+	private Vector2 _knockbackVelocity = Vector2.Zero;
 
 	private bool _isAttacking = false;
 	private int _hp = 6;
 	private int _maxHp = 6;
 	private bool _wasOnFloor = true;
+	private bool _isKnockedBack = false;
 
 	# endregion Private Vars
 
@@ -50,7 +53,6 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		GD.Print("Ready!");
 		AddToGroup(Groups.Player.ToString());
 		UseIdleAnimation();
 		_jumpAudio = GetNode<AudioStreamPlayer2D>("JumpAudio");
@@ -65,23 +67,21 @@ public partial class Player : CharacterBody2D
 		_whipHitBox.AddToGroup(Groups.Weapon.ToString());
 		_whipHitBox.BodyEntered += OnWhipCollision;
 		_whipHitBox.AreaEntered += OnWhipOverlap;
+		_whipCollision = _whipHitBox.GetNode<CollisionShape2D>("WhipCollision");
 		DisableWhip();
 	}
 
 	private void OnWhipOverlap(Area2D area)
 	{
-		GD.Print("Whip overlap " + area.Name);
-		GD.Print(Layers.Destructable.ToString());
 		if (area is Destructable destructable)
 		{
 			destructable.Destroy();
-			EmitSignal(SignalName.IncreaseScore, 100);
+			EmitSignal(SignalName.IncreaseScore, 50);
 		}
 	}
 
 	private void OnWhipCollision(Node2D body)
 	{
-		GD.Print("Whip hit " + body.Name);
 		if (body is Skeleton skeleton)
 		{
 			skeleton.Destroy();
@@ -99,8 +99,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (Input.IsActionJustPressed("quit"))
 			GetTree().Quit();
-
-		HandleMovement(delta);
+		HandleMovement((float)delta);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -119,15 +118,29 @@ public partial class Player : CharacterBody2D
 
 	public void TakeDamage(int amount)
 	{
+		// Don't take damage while knocked back.
+		// iframes baby
+		if (_isKnockedBack) return;
 		_hp = Math.Max(_hp - amount, 0); // Don't go below 0.
 		_hurtAudio.Play();
+		FlashHurt();
 		_gameManager.UpdateHealth(_hp);
-		GD.Print("Took " + amount + " damage!");
-		GD.Print("HP is now " + _hp);
 		if (_hp <= 0)
 		{
 			Die();
 		}
+	}
+
+	public void ApplyKnockback(Vector2 direction, float force = 100.0f)
+	{
+		_isKnockedBack = true;
+		_knockbackVelocity = new Vector2(direction.X, -1).Normalized() * force;
+	}
+
+	private void FlashHurt()
+	{
+		_animatedSprite2D.Modulate = new Color(1, 0, 0);
+		GetTree().CreateTimer(0.1f).Timeout += () => { _animatedSprite2D.Modulate = new Color(1, 1, 1); };
 	}
 
 	public void Heal(int amount)
@@ -165,14 +178,14 @@ public partial class Player : CharacterBody2D
 	}
 
 
-	private void HandleMovement(double delta)
+	private void HandleMovement(float delta)
 	{
 		Vector2 velocity = Velocity;
 
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity.Y += _gravity * (float)delta;
+			velocity.Y += _gravity * delta;
 		}
 
 		// Handle Jump.
@@ -183,13 +196,27 @@ public partial class Player : CharacterBody2D
 			_jumpAudio.Play();
 		}
 
-		// Handle horizontal movement
-		var direction = Input.GetAxis("move_left", "move_right");
-		velocity.X = _isAttacking && IsOnFloor() ? 0 : direction * Speed;
+		// Handle Knockback
+		if (_isKnockedBack)
+		{
+			// Use 500.0f here for floating; regular gravity is too harsh
+			_knockbackVelocity.Y += 500.0f * delta;
+			velocity = _knockbackVelocity;
+			ApplyMovement(velocity);
+			if (IsOnFloor())
+			{
+				_isKnockedBack = false;
+				_knockbackVelocity = Vector2.Zero;
+			}
+		}
+		else
+		{
+			// Handle horizontal movement
+			var direction = Input.GetAxis("move_left", "move_right");
+			velocity.X = _isAttacking && IsOnFloor() ? 0 : direction * Speed;
+		}
 
 		HandleAnimations(velocity);
-
-		Velocity = velocity;
 
 		if (IsOnFloor() && !_wasOnFloor)
 		{
@@ -199,6 +226,12 @@ public partial class Player : CharacterBody2D
 
 		_wasOnFloor = IsOnFloor();
 
+		ApplyMovement(velocity);
+	}
+
+	private void ApplyMovement(Vector2 velocity)
+	{
+		Velocity = velocity;
 		MoveAndSlide();
 	}
 
@@ -242,6 +275,7 @@ public partial class Player : CharacterBody2D
 
 	private void HandleFacingDirection(Vector2 velocity)
 	{
+		if (_isKnockedBack) return;
 		if (velocity.X < 0)
 		{
 			_animatedSprite2D.FlipH = true;
@@ -312,16 +346,12 @@ public partial class Player : CharacterBody2D
 
 	private void DisableWhip()
 	{
-		GD.Print("Disable whip");
-		_whipHitBox.SetCollisionMaskValue((int)Layers.Destructable, false);
-		_whipHitBox.SetCollisionMaskValue((int)Layers.Enemy, false);
+		_whipCollision.Disabled = true;
 	}
 
 	private void EnableWhip()
 	{
-		GD.Print("Enable whip");
-		_whipHitBox.SetCollisionMaskValue((int)Layers.Destructable, true);
-		_whipHitBox.SetCollisionMaskValue((int)Layers.Enemy, true);
+		_whipCollision.Disabled = false;
 	}
 
 	# endregion Private Methods
@@ -335,10 +365,3 @@ public static class PlayerAnimations
 	public static string Walk => "Walk";
 	public static string Whip => "Whip";
 }
-
-// Layer 1 = Level
-// 2 = Enemy
-// 3 = Destructable
-// 4 = Pickup
-// 5 = Player
-// 6 = Weapon

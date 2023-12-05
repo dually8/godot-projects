@@ -34,11 +34,16 @@ public partial class Skeleton : CharacterBody2D
 	private bool IsFacingLeft => _sprite.FlipH == false;
 	private float _speed = 50.0f;
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	/// <summary>
+	/// john is kill
+	/// no
+	/// but srsly, this is used to stop the skeleton from moving
+	/// after it has been killed
+	/// </summary>
 	private bool _isKill = false;
 
 	public override void _Ready()
 	{
-		GD.Print("Skeleton ready!");
 		AddToGroup(Groups.Enemy.ToString());
 		_hitAudio = GetNode<AudioStreamPlayer2D>("HitSFX");
 		InitializePlayer();
@@ -46,15 +51,6 @@ public partial class Skeleton : CharacterBody2D
 		SetCollisionShape();
 		InitializeAttackTimer();
 		InitializeRayCasts();
-		ConnectSignals();
-	}
-
-	private void ConnectSignals()
-	{
-		GameManager gm = GetNode<GameManager>("/root/Main");
-		if (gm == null) return;
-		GD.Print("Connect enemy signal to game manager");
-		Destroyed += gm.OnSkeletonDestroyed;
 	}
 
 	private void SetCollisionShape()
@@ -77,6 +73,7 @@ public partial class Skeleton : CharacterBody2D
 		var velocity = Velocity;
 		if (!IsOnFloor())
 			velocity.Y += _gravity * (float)delta;
+		SetWalkingDirection(); // Comment this if you want the skeleton to not follow the player
 		velocity.X = _walkingDirection.X * _speed;
 		HandleFacingDirection(velocity);
 		Velocity = velocity;
@@ -100,7 +97,9 @@ public partial class Skeleton : CharacterBody2D
 
 	private void OnAttackTimerTimeout()
 	{
-		if (!IsFacingLeft && _attackDistance < 0) _attackDistance *= -1;
+		if (_isKill) return;
+		// Set the raycast to the correct direction
+		_attackDistance = IsFacingLeft ? -Mathf.Abs(_attackDistance) : Mathf.Abs(_attackDistance);
 		if (_attackRayCast == null) return;
 		_attackRayCast.TargetPosition = new Vector2(_attackDistance, _attackRayCast.Position.Y);
 		_attackRayCast.ForceRaycastUpdate();
@@ -109,8 +108,8 @@ public partial class Skeleton : CharacterBody2D
 			var collider = _attackRayCast.GetCollider() as Node2D;
 			if (collider is Player)
 			{
-				GD.Print("Attack player!");
 				_player.TakeDamage(1); // Take 1 damage
+				_player.ApplyKnockback(_attackDistance > 0 ? Vector2.Right : Vector2.Left);
 			}
 		}
 	}
@@ -120,6 +119,11 @@ public partial class Skeleton : CharacterBody2D
 		_player = GetTree()
 			.GetNodesInGroup(Groups.Player.ToString())
 			.FirstOrDefault() as Player;
+		SetWalkingDirection();
+	}
+
+	private void SetWalkingDirection()
+	{
 		if (_player != null)
 		{
 			_walkingDirection = (_player.Position - Position).Normalized();
