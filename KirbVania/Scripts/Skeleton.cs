@@ -13,23 +13,12 @@ public partial class Skeleton : CharacterBody2D
 	/// </summary>
 	[Export] private float _floorRayCastLength = 16.0f;
 
-	/// <summary>
-	/// Negative attacks left. Positive attacks right.
-	/// </summary>
-	[Export] private float _attackDistance = -18.0f;
-
-	/// <summary>
-	/// Attack Rate in seconds.
-	/// </summary>
-	[Export] private float _attackRate = 1.0f;
-
 	private RayCast2D _floorRayCast;
-	private RayCast2D _attackRayCast;
-	private Timer _attackTimer;
 	private AnimatedSprite2D _sprite;
 	private Vector2 _walkingDirection = Vector2.Left;
 	private Player _player;
 	private AudioStreamPlayer2D _hitAudio;
+	private Area2D _hitBox;
 
 	private bool IsFacingLeft => _sprite.FlipH == false;
 	private float _speed = 50.0f;
@@ -49,8 +38,8 @@ public partial class Skeleton : CharacterBody2D
 		InitializePlayer();
 		InitializeSprite();
 		SetFloorSnapLength();
-		InitializeAttackTimer();
 		InitializeRayCasts();
+		InitializeHitBox();
 	}
 
 	private void SetFloorSnapLength()
@@ -93,22 +82,21 @@ public partial class Skeleton : CharacterBody2D
 		EmitSignal(SignalName.Destroyed);
 	}
 
-	private void OnAttackTimerTimeout()
+	private void InitializeHitBox()
 	{
+		_hitBox = GetNode<Area2D>("HitBox");
+		_hitBox.BodyEntered += OnHitBoxBodyEntered;
+	}
+
+	private void OnHitBoxBodyEntered(Node2D body)
+	{
+		// Can't be hurtin' the player if you're dead lol
 		if (_isKill) return;
-		// Set the raycast to the correct direction
-		_attackDistance = IsFacingLeft ? -Mathf.Abs(_attackDistance) : Mathf.Abs(_attackDistance);
-		if (_attackRayCast == null) return;
-		_attackRayCast.TargetPosition = new Vector2(_attackDistance, _attackRayCast.Position.Y);
-		_attackRayCast.ForceRaycastUpdate();
-		if (_attackRayCast.IsColliding())
+
+		if (body is Player)
 		{
-			var collider = _attackRayCast.GetCollider() as Node2D;
-			if (collider is Player)
-			{
-				_player.TakeDamage(1); // Take 1 damage
-				_player.ApplyKnockback(_attackDistance > 0 ? Vector2.Right : Vector2.Left);
-			}
+			_player.TakeDamage(1); // Take 1 damage
+			_player.ApplyKnockback(IsFacingLeft ? Vector2.Left : Vector2.Right);
 		}
 	}
 
@@ -122,7 +110,7 @@ public partial class Skeleton : CharacterBody2D
 
 	private void SetWalkingDirection()
 	{
-		if (_player != null)
+		if (IsInstanceValid(_player))
 		{
 			_walkingDirection = (_player.Position - Position).Normalized();
 		}
@@ -135,19 +123,9 @@ public partial class Skeleton : CharacterBody2D
 		_sprite.Play(SkeletonAnimations.Walk);
 	}
 
-	private void InitializeAttackTimer()
-	{
-		_attackTimer = GetNode<Timer>("%AttackTimer");
-		_attackTimer.WaitTime = _attackRate;
-		_attackTimer.Start();
-		_attackTimer.Timeout += OnAttackTimerTimeout;
-	}
-
 	private void InitializeRayCasts()
 	{
 		_floorRayCast = GetNode<RayCast2D>("%FloorRayCast");
-		_attackRayCast = GetNode<RayCast2D>("%AttackRayCast");
-
 		_floorRayCast.TargetPosition = new Vector2(0.0f, _floorRayCastLength);
 	}
 

@@ -361,4 +361,4 @@ volume_db = -1.0
 autoplay = true
 
 [node name="EnemySpawner" parent="." instance=ExtResource("9_ofw52")]
-position = Vector2(686, -48)
+position = Vector2(976, -163)
