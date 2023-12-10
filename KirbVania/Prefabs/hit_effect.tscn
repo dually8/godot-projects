@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5lurv7443qy7"]
+
+[ext_resource type="SpriteFrames" uid="uid://b8scx50oc848m" path="res://Assets/HitSpriteFrames.tres" id="1_popjv"]
+
+[node name="HitEffect" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_popjv")
+animation = &"Hit"

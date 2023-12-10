@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://o55thht06h1l"]
+[gd_scene load_steps=9 format=3 uid="uid://o55thht06h1l"]
 
 [ext_resource type="Script" path="res://Scripts/Destructable.cs" id="1_2c7gk"]
 [ext_resource type="Texture2D" uid="uid://sfrfqge508dg" path="res://Assets/Light.png" id="1_7ydbc"]
 [ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="3_8dntx"]
+[ext_resource type="PackedScene" uid="uid://c5lurv7443qy7" path="res://Prefabs/hit_effect.tscn" id="4_cnfn8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urh2b"]
 atlas = ExtResource("1_7ydbc")
@@ -46,3 +47,6 @@ shape = SubResource("RectangleShape2D_r77gx")
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_8dntx")
+
+[node name="HitEffect" parent="." instance=ExtResource("4_cnfn8")]
+visible = false

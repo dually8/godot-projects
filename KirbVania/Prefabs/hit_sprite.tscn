@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://uae8d5pmrevb"]
+
+[ext_resource type="Texture2D" uid="uid://d1gtvlqqd5ea" path="res://Assets/HitEffect.png" id="1_576vc"]
+[ext_resource type="Script" path="res://Scripts/HitSprite.cs" id="2_7irss"]
+
+[node name="HitSprite" type="Sprite2D"]
+texture = ExtResource("1_576vc")
+script = ExtResource("2_7irss")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true

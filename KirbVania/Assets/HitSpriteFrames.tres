@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://b8scx50oc848m"]
+
+[ext_resource type="Texture2D" uid="uid://bwesok3h6bwm2" path="res://Assets/SmallEnemyHit.png" id="1_1far2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5ce1"]
+atlas = ExtResource("1_1far2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0np3"]
+atlas = ExtResource("1_1far2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1y50"]
+atlas = ExtResource("1_1far2")
+region = Rect2(32, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5ce1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0np3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1y50")
+}],
+"loop": false,
+"name": &"Hit",
+"speed": 5.0
+}]

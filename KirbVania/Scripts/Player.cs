@@ -39,8 +39,9 @@ public partial class Player : CharacterBody2D
 	private AudioStreamPlayer2D _landAudio;
 	private AudioStreamPlayer2D _whipAudio;
 	private AudioStreamPlayer2D _hurtAudio;
-	private Vector2 _knockbackVelocity = Vector2.Zero;
+	private PackedScene _hitSpriteScene;
 
+	private Vector2 _knockbackVelocity = Vector2.Zero;
 	private bool _isAttacking = false;
 	private int _hp = 6;
 	private int _maxHp = 6;
@@ -69,12 +70,14 @@ public partial class Player : CharacterBody2D
 		_whipHitBox.AreaEntered += OnWhipOverlap;
 		_whipCollision = _whipHitBox.GetNode<CollisionShape2D>("WhipCollision");
 		DisableWhip();
+		_hitSpriteScene = ResourceLoader.Load<PackedScene>("res://Prefabs/hit_sprite.tscn");
 	}
 
 	private void OnWhipOverlap(Area2D area)
 	{
 		if (area is Destructable destructable)
 		{
+			SpawnHitSprite(area);
 			destructable.Destroy();
 			EmitSignal(SignalName.IncreaseScore, 50);
 		}
@@ -84,6 +87,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (body is Skeleton skeleton)
 		{
+			SpawnHitSprite(body);
 			skeleton.Destroy();
 			EmitSignal(SignalName.IncreaseScore, 100);
 		}
@@ -158,6 +162,18 @@ public partial class Player : CharacterBody2D
 	#endregion
 
 	# region Private Methods
+
+	private void SpawnHitSprite(Node2D node)
+	{
+		// Instantiate the hit sprite scene
+		HitSprite hitSprite = _hitSpriteScene.Instantiate<HitSprite>();
+
+		// Set the position of the hit sprite to the overlap point
+		hitSprite.Position = (_whipHitBox.GlobalPosition + node.GlobalPosition) / 2;
+
+		// Add the hit sprite to the scene tree
+		GetTree().Root.AddChild(hitSprite);
+	}
 
 	private void OnAnimatedFinished()
 	{

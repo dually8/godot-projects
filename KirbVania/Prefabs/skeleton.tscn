@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://2oylbmpfb5eb"]
+[gd_scene load_steps=5 format=3 uid="uid://2oylbmpfb5eb"]
 
 [ext_resource type="SpriteFrames" uid="uid://ddc6idct40c7d" path="res://Assets/SkeletonSpriteFrames.tres" id="1_23nwk"]
 [ext_resource type="Script" path="res://Scripts/Skeleton.cs" id="1_tsg2k"]
 [ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="3_axfa5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svqtq"]
+size = Vector2(18, 31)
 
 [node name="Skeleton" type="CharacterBody2D"]
 z_index = 1
@@ -17,6 +20,8 @@ animation = &"Walk"
 autoplay = "Walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_svqtq")
 
 [node name="FloorRayCast" type="RayCast2D" parent="."]
 unique_name_in_owner = true
