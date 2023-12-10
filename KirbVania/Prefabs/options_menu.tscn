@@ -36,6 +36,8 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Options"
 label_settings = SubResource("LabelSettings_d8sct")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

@@ -101,14 +101,12 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (Input.IsActionJustPressed("quit"))
-			GetTree().Quit();
 		HandleMovement((float)delta);
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("attack"))
+		if (@event.IsActionPressed(InputActions.Attack))
 		{
 			_isAttacking = true;
 			TryAttack();
@@ -156,7 +154,7 @@ public partial class Player : CharacterBody2D
 	private void Die()
 	{
 		// TODO: Display game over screen
-		GetTree().ReloadCurrentScene();
+		GetTree().ChangeSceneToFile("res://Prefabs/main_menu.tscn");
 	}
 
 	#endregion
@@ -205,7 +203,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
 			// Play jump sound
@@ -228,7 +226,7 @@ public partial class Player : CharacterBody2D
 		else
 		{
 			// Handle horizontal movement
-			var direction = Input.GetAxis("move_left", "move_right");
+			var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
 			velocity.X = _isAttacking && IsOnFloor() ? 0 : direction * Speed;
 		}
 
