@@ -48,16 +48,14 @@ public partial class Skeleton : CharacterBody2D
 		_hitAudio = GetNode<AudioStreamPlayer2D>("HitSFX");
 		InitializePlayer();
 		InitializeSprite();
-		SetCollisionShape();
+		SetFloorSnapLength();
 		InitializeAttackTimer();
 		InitializeRayCasts();
 	}
 
-	private void SetCollisionShape()
+	private void SetFloorSnapLength()
 	{
-		var collision = GetNode<CollisionShape2D>("CollisionShape2D");
 		var spriteSize = _sprite.SpriteFrames.GetFrameTexture("Walk", 0).GetSize();
-		collision.Shape = new RectangleShape2D() { Size = spriteSize };
 		FloorSnapLength = spriteSize.Y / 2;
 	}
 

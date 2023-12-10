@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://c6vahw4halja1" path="res://Assets/Castlevania_Level1.png" id="1_y2iyb"]
 [ext_resource type="Texture2D" uid="uid://b7laf5rrynmj7" path="res://Assets/Castlevania_Tileset.png" id="2_8j0dx"]
 [ext_resource type="PackedScene" uid="uid://br7qwturgnoix" path="res://Prefabs/player.tscn" id="3_hev6s"]
-[ext_resource type="PackedScene" uid="uid://2oylbmpfb5eb" path="res://Prefabs/skeleton.tscn" id="4_jtghq"]
 [ext_resource type="PackedScene" uid="uid://o55thht06h1l" path="res://Prefabs/light.tscn" id="5_fb8rp"]
 [ext_resource type="PackedScene" uid="uid://csav025q8eiw1" path="res://Prefabs/boundary.tscn" id="8_opuld"]
+[ext_resource type="PackedScene" uid="uid://b2wo84efmnnq" path="res://Prefabs/enemy_spawner.tscn" id="9_ofw52"]
 [ext_resource type="AudioStream" uid="uid://bly2flx2hsb4m" path="res://Assets/BadVampireKiller.ogg" id="9_qwljn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0vr1"]
@@ -348,17 +348,6 @@ position = Vector2(709, -89)
 [node name="Light4" parent="Lights" instance=ExtResource("5_fb8rp")]
 position = Vector2(855, -43)
 
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Skeleton" parent="Enemies" instance=ExtResource("4_jtghq")]
-position = Vector2(432, -44)
-
-[node name="Skeleton2" parent="Enemies" instance=ExtResource("4_jtghq")]
-position = Vector2(684, -44)
-
-[node name="Skeleton3" parent="Enemies" instance=ExtResource("4_jtghq")]
-position = Vector2(959, -154)
-
 [node name="LeftBoundary" parent="." instance=ExtResource("8_opuld")]
 scale = Vector2(1.15, 1.15)
 
@@ -370,3 +359,6 @@ scale = Vector2(1.15, 1.15)
 stream = ExtResource("9_qwljn")
 volume_db = -1.0
 autoplay = true
+
+[node name="EnemySpawner" parent="." instance=ExtResource("9_ofw52")]
+position = Vector2(686, -48)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2wo84efmnnq"]
+
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.cs" id="1_rhn17"]
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_rhn17")
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
