@@ -309,7 +309,7 @@ scale = Vector2(1.15, 1.15)
 zoom = Vector2(3, 3)
 limit_left = 8
 limit_top = -250
-limit_right = 1544
+limit_right = 1779
 limit_bottom = 250
 position_smoothing_speed = 1.0
 editor_draw_limits = true
@@ -352,7 +352,7 @@ position = Vector2(855, -43)
 scale = Vector2(1.15, 1.15)
 
 [node name="RightBoundary" parent="." instance=ExtResource("8_opuld")]
-position = Vector2(1560, -104)
+position = Vector2(1788, -112)
 scale = Vector2(1.15, 1.15)
 
 [node name="LevelMusic" type="AudioStreamPlayer2D" parent="."]
