@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxpyucm48u158"]
+[gd_scene load_steps=14 format=3 uid="uid://bxpyucm48u158"]
 
 [ext_resource type="PackedScene" uid="uid://ewtdtlls7g4l" path="res://Prefabs/hud.tscn" id="1_45dd7"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_mavl2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://csav025q8eiw1" path="res://Prefabs/boundary.tscn" id="8_opuld"]
 [ext_resource type="PackedScene" uid="uid://b2wo84efmnnq" path="res://Prefabs/enemy_spawner.tscn" id="9_ofw52"]
 [ext_resource type="AudioStream" uid="uid://bly2flx2hsb4m" path="res://Assets/BadVampireKiller.ogg" id="9_qwljn"]
+[ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="10_d0pdy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0vr1"]
 resource_name = "Level1"
@@ -319,6 +320,16 @@ limit_bottom = 250
 position_smoothing_speed = 1.0
 editor_draw_limits = true
 
+[node name="LevelMusic" type="AudioStreamPlayer2D" parent="Camera2D"]
+scale = Vector2(0.869565, 0.869565)
+stream = ExtResource("9_qwljn")
+volume_db = -1.0
+autoplay = true
+
+[node name="EnemySounds" type="AudioStreamPlayer2D" parent="Camera2D"]
+scale = Vector2(0.869565, 0.869565)
+stream = ExtResource("10_d0pdy")
+
 [node name="Player" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("3_hev6s")]
 z_index = 1
 position = Vector2(65, -37)
@@ -359,11 +370,6 @@ scale = Vector2(1.15, 1.15)
 [node name="RightBoundary" parent="." instance=ExtResource("8_opuld")]
 position = Vector2(1788, -112)
 scale = Vector2(1.15, 1.15)
-
-[node name="LevelMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_qwljn")
-volume_db = -1.0
-autoplay = true
 
 [node name="EnemySpawner" parent="." instance=ExtResource("9_ofw52")]
 position = Vector2(976, -163)

@@ -17,7 +17,6 @@ public partial class Skeleton : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 	private Vector2 _walkingDirection = Vector2.Left;
 	private Player _player;
-	private AudioStreamPlayer2D _hitAudio;
 	private Area2D _hitBox;
 
 	private bool IsFacingLeft => _sprite.FlipH == false;
@@ -34,7 +33,6 @@ public partial class Skeleton : CharacterBody2D
 	public override void _Ready()
 	{
 		AddToGroup(Groups.Enemy.ToString());
-		_hitAudio = GetNode<AudioStreamPlayer2D>("HitSFX");
 		InitializePlayer();
 		InitializeSprite();
 		SetFloorSnapLength();
@@ -73,8 +71,6 @@ public partial class Skeleton : CharacterBody2D
 		if (_isKill) return;
 		// Side effect; stop moving (see PhysicsProcess)
 		_isKill = true;
-		// Play hit sound
-		_hitAudio.Play();
 		// Play death animation
 		// Side effect is that the skeleton will
 		// be removed from the scene tree

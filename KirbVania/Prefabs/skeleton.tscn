@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://2oylbmpfb5eb"]
+[gd_scene load_steps=5 format=3 uid="uid://2oylbmpfb5eb"]
 
 [ext_resource type="SpriteFrames" uid="uid://ddc6idct40c7d" path="res://Assets/SkeletonSpriteFrames.tres" id="1_23nwk"]
 [ext_resource type="Script" path="res://Scripts/Skeleton.cs" id="1_tsg2k"]
-[ext_resource type="AudioStream" uid="uid://dw5yaggwa54nv" path="res://Assets/EnemyHitSFX.ogg" id="3_axfa5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svqtq"]
 size = Vector2(16, 31)
@@ -29,11 +28,6 @@ shape = SubResource("RectangleShape2D_svqtq")
 unique_name_in_owner = true
 position = Vector2(0, 16)
 target_position = Vector2(0, 16)
-
-[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
-scale = Vector2(1.15, 1.15)
-stream = ExtResource("3_axfa5")
-volume_db = 1.0
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2

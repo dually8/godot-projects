@@ -11,13 +11,29 @@ public partial class GameManager : Node2D
 	private int _score = 0;
 	private bool _isPaused = false;
 	private AudioStreamPlayer2D _levelMusic;
+	private AudioStreamPlayer2D _enemySounds;
+	private EnemySpawner _enemySpawner;
 
 	public override void _Ready()
 	{
-		_levelMusic = GetNode<AudioStreamPlayer2D>("LevelMusic");
+		_levelMusic = GetNode<AudioStreamPlayer2D>("Camera2D/LevelMusic");
 		_levelMusic.Finished += OnMusicFinished;
 		_player.IncreaseScore += OnPlayerScoreIncrease;
+		_enemySounds = GetNode<AudioStreamPlayer2D>("Camera2D/EnemySounds");
+		_enemySpawner = GetNode<EnemySpawner>("EnemySpawner");
+		_enemySpawner.EnemySpawned += OnEnemySpawned;
 		InitializeUI();
+	}
+
+	private void OnEnemySpawned(Skeleton skeleton)
+	{
+		skeleton.Destroyed += OnSkeletonDestroyed;
+	}
+
+	private void OnSkeletonDestroyed()
+	{
+		if (_enemySounds.Playing) return;
+		_enemySounds.Play();
 	}
 
 	public override void _Input(InputEvent @event)

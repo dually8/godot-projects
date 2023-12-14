@@ -4,6 +4,8 @@ using KirbVania.Scripts;
 
 public partial class EnemySpawner : Node2D
 {
+	[Signal] public delegate void EnemySpawnedEventHandler(Skeleton skeleton);
+
 	private Timer _spawnTimer;
 	private VisibleOnScreenNotifier2D _notifier;
 	private PackedScene _enemyScene;
@@ -43,6 +45,7 @@ public partial class EnemySpawner : Node2D
 		Skeleton skeleton = _enemyScene.Instantiate<Skeleton>();
 		skeleton.Position = Position;
 		GetTree().Root.AddChild(skeleton);
+		EmitSignal(SignalName.EnemySpawned, skeleton);
 	}
 
 	private void InitTimer()
