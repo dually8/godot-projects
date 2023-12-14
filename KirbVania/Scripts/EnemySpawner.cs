@@ -1,11 +1,13 @@
 using Godot;
 using System;
+using KirbVania.Scripts;
 
 public partial class EnemySpawner : Node2D
 {
 	private Timer _spawnTimer;
 	private VisibleOnScreenNotifier2D _notifier;
 	private PackedScene _enemyScene;
+	private int _maxEnemies = 5;
 
 	public override void _Ready()
 	{
@@ -29,7 +31,8 @@ public partial class EnemySpawner : Node2D
 
 	private void OnSpawnTimerTimeout()
 	{
-		if (!_notifier.IsOnScreen())
+		var enemies = GetTree().GetNodesInGroup(Groups.Enemy.ToString()).Count;
+		if (!_notifier.IsOnScreen() && enemies < _maxEnemies)
 		{
 			SpawnSkeleton();
 		}

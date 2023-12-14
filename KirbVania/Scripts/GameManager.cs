@@ -63,6 +63,7 @@ public partial class GameManager : Node2D
 	{
 		if (!_isPaused) return;
 		_isPaused = false;
+		_pauseMenu.Hide();
 		_levelMusic.StreamPaused = false;
 		GetTree().Paused = false;
 	}
