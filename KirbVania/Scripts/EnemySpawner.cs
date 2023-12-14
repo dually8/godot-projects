@@ -44,7 +44,7 @@ public partial class EnemySpawner : Node2D
 	{
 		Skeleton skeleton = _enemyScene.Instantiate<Skeleton>();
 		skeleton.Position = Position;
-		GetTree().Root.AddChild(skeleton);
+		GetNode("/root/Main").AddChild(skeleton);
 		EmitSignal(SignalName.EnemySpawned, skeleton);
 	}
 

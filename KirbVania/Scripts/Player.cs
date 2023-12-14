@@ -170,7 +170,7 @@ public partial class Player : CharacterBody2D
 		hitSprite.Position = (_whipHitBox.GlobalPosition + node.GlobalPosition) / 2;
 
 		// Add the hit sprite to the scene tree
-		GetTree().Root.AddChild(hitSprite);
+		GetNode("/root/Main").AddChild(hitSprite);
 	}
 
 	private void OnAnimatedFinished()
