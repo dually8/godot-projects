@@ -33,6 +33,10 @@ project/assembly_name="KirbVania"
 
 enabled=PackedStringArray()
 
+[gui]
+
+theme/custom="res://Theme.tres"
+
 [input]
 
 ui_accept={

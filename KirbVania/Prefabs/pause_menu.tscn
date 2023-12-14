@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1000cpwd36l0"]
+[gd_scene load_steps=4 format=3 uid="uid://d1000cpwd36l0"]
 
 [ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_607jt"]
+[ext_resource type="Theme" uid="uid://c8b7kxuvrducw" path="res://Theme.tres" id="1_rgl4c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d8sct"]
 font_size = 36
@@ -13,7 +14,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_rgl4c")
 script = ExtResource("1_607jt")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -648.0
+offset_top = -376.0
+offset_right = 656.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

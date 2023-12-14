@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxpyucm48u158"]
+[gd_scene load_steps=15 format=3 uid="uid://bxpyucm48u158"]
 
 [ext_resource type="PackedScene" uid="uid://ewtdtlls7g4l" path="res://Prefabs/hud.tscn" id="1_45dd7"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_mavl2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b7laf5rrynmj7" path="res://Assets/Castlevania_Tileset.png" id="2_8j0dx"]
 [ext_resource type="PackedScene" uid="uid://br7qwturgnoix" path="res://Prefabs/player.tscn" id="3_hev6s"]
 [ext_resource type="PackedScene" uid="uid://d1000cpwd36l0" path="res://Prefabs/pause_menu.tscn" id="3_ipq38"]
+[ext_resource type="PackedScene" uid="uid://xk38ecxvbexf" path="res://Prefabs/game_over_screen.tscn" id="4_3wwib"]
 [ext_resource type="PackedScene" uid="uid://o55thht06h1l" path="res://Prefabs/light.tscn" id="5_fb8rp"]
 [ext_resource type="PackedScene" uid="uid://csav025q8eiw1" path="res://Prefabs/boundary.tscn" id="8_opuld"]
 [ext_resource type="PackedScene" uid="uid://b2wo84efmnnq" path="res://Prefabs/enemy_spawner.tscn" id="9_ofw52"]
@@ -283,17 +284,21 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 62
 sources/1 = SubResource("TileSetAtlasSource_r0vr1")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("_player", "_hud", "_pauseMenu")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("_player", "_hud", "_pauseMenu", "_gameOverScreen")]
 script = ExtResource("1_mavl2")
 _player = NodePath("Player")
 _hud = NodePath("UI/HUD")
 _pauseMenu = NodePath("UI/PauseMenu")
+_gameOverScreen = NodePath("UI/GameOverScreen")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("1_45dd7")]
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("3_ipq38")]
+visible = false
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("4_3wwib")]
 visible = false
 
 [node name="CastlevaniaLevel1" type="Sprite2D" parent="."]

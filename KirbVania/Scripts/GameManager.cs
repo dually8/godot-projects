@@ -7,6 +7,7 @@ public partial class GameManager : Node2D
 	[Export] private Player _player { get; set; }
 	[Export] private HUD _hud { get; set; }
 	[Export] private PauseMenu _pauseMenu { get; set; }
+	[Export] private GameOverScreen _gameOverScreen { get; set; }
 
 	private int _score = 0;
 	private bool _isPaused = false;
@@ -19,10 +20,17 @@ public partial class GameManager : Node2D
 		_levelMusic = GetNode<AudioStreamPlayer2D>("Camera2D/LevelMusic");
 		_levelMusic.Finished += OnMusicFinished;
 		_player.IncreaseScore += OnPlayerScoreIncrease;
+		_player.Death += OnPlayerDeath;
 		_enemySounds = GetNode<AudioStreamPlayer2D>("Camera2D/EnemySounds");
 		_enemySpawner = GetNode<EnemySpawner>("EnemySpawner");
 		_enemySpawner.EnemySpawned += OnEnemySpawned;
 		InitializeUI();
+	}
+
+	private void OnPlayerDeath()
+	{
+		_player.QueueFree();
+		_gameOverScreen.ShowScreen();
 	}
 
 	private void OnEnemySpawned(Skeleton skeleton)

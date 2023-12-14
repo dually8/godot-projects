@@ -1,0 +1,150 @@
+[gd_scene load_steps=17 format=3 uid="uid://xk38ecxvbexf"]
+
+[ext_resource type="Theme" uid="uid://c8b7kxuvrducw" path="res://Theme.tres" id="1_1pl7g"]
+[ext_resource type="Texture2D" uid="uid://bqlbrbjeq48y" path="res://Assets/kirby_cry.png" id="1_rxs6a"]
+[ext_resource type="Script" path="res://Scripts/GameOverScreen.cs" id="2_aabs7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3fxb"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8dq0"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03k64"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86hg1"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2xru"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep43r"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b37cy"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbucj"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dwkb"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43ddo"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2glot"]
+atlas = ExtResource("1_rxs6a")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdwvm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3fxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8dq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03k64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86hg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2xru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep43r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b37cy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbucj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dwkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43ddo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2glot")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d8sct"]
+font_size = 36
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1pl7g")
+script = ExtResource("2_aabs7")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -648.0
+offset_top = -376.0
+offset_right = 656.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.5
+offset_top = -48.5
+offset_right = 99.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="KirbyCrySprite" type="AnimatedSprite2D" parent="VBoxContainer"]
+position = Vector2(122.5, -50)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_qdwvm")
+autoplay = "default"
+
+[node name="GameOverTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Game over!"
+label_settings = SubResource("LabelSettings_d8sct")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Restart"

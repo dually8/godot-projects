@@ -9,6 +9,9 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void IncreaseScoreEventHandler(int amount);
 
+	[Signal]
+	public delegate void DeathEventHandler();
+
 	# endregion Signals
 
 	# region Export Vars
@@ -153,8 +156,7 @@ public partial class Player : CharacterBody2D
 
 	private void Die()
 	{
-		// TODO: Display game over screen
-		GetTree().ChangeSceneToFile("res://Prefabs/main_menu.tscn");
+		EmitSignal(SignalName.Death);
 	}
 
 	#endregion
