@@ -10,12 +10,12 @@ public partial class PauseMenu : Control
 
 	public override void _Ready()
 	{
-		_resumeButton = GetNode<Button>("MarginContainer/VBoxContainer/ResumeBtn");
+		_resumeButton = GetNode<Button>("VBoxContainer/ResumeBtn");
 		_resumeButton.Pressed += OnResumePressed;
 		_resumeButton.GrabFocus();
-		_optionsButton = GetNode<Button>("MarginContainer/VBoxContainer/OptionsBtn");
+		_optionsButton = GetNode<Button>("VBoxContainer/OptionsBtn");
 		_optionsButton.Pressed += OnOptionsPressed;
-		_exitButton = GetNode<Button>("MarginContainer/VBoxContainer/ExitBtn");
+		_exitButton = GetNode<Button>("VBoxContainer/ExitBtn");
 		_exitButton.Pressed += OnExitPressed;
 		_gameManager = GetNode<GameManager>("/root/Main");
 		VisibilityChanged += OnVisibilityChanged;

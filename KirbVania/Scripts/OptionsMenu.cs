@@ -9,7 +9,7 @@ public partial class OptionsMenu : Control
 
 	public override void _Ready()
 	{
-		_backButton = GetNode<Button>("MarginContainer/VBoxContainer/BackButton");
+		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		_backButton.Pressed += OnBackButtonPressed;
 		_backButton.GrabFocus();
 	}

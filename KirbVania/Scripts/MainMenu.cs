@@ -9,12 +9,12 @@ public partial class MainMenu : Control
 
 	public override void _Ready()
 	{
-		_playButton = GetNode<Button>("MarginContainer/VBoxContainer/PlayBtn");
+		_playButton = GetNode<Button>("VBoxContainer/PlayBtn");
 		_playButton.Pressed += OnPlayPressed;
 		_playButton.GrabFocus();
-		_optionsButton = GetNode<Button>("MarginContainer/VBoxContainer/OptionsBtn");
+		_optionsButton = GetNode<Button>("VBoxContainer/OptionsBtn");
 		_optionsButton.Pressed += OnOptionsPressed;
-		_exitButton = GetNode<Button>("MarginContainer/VBoxContainer/ExitButton");
+		_exitButton = GetNode<Button>("VBoxContainer/ExitButton");
 		_exitButton.Pressed += OnExitPressed;
 	}
 
